@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="qandidate.toggle.manager.class">Qandidate\Toggle\ToggleManager</parameter>
+        <parameter key="qandidate.toggle.collection.in_memory.class">Qandidate\Toggle\ToggleCollection\InMemoryCollection</parameter>
+        <parameter key="qandidate.toggle.collection.predis.class">Qandidate\Toggle\ToggleCollection\PredisCollection</parameter>
+        <parameter key="qandidate.toggle.user_context_factory.class">Qandidate\Bundle\ToggleBundle\Context\UserContextFactory</parameter>
+        <parameter key="qandidate.toggle.twig_extension.class">Qandidate\Bundle\ToggleBundle\Twig\ToggleTwigExtension</parameter>
+    </parameters>
+
+    <services>
+
+        <service id="qandidate.toggle.collection.in_memory" class="%qandidate.toggle.collection.in_memory.class%" />
+
+        <service id="qandidate.toggle.manager" class="%qandidate.toggle.manager.class%">
+            <argument type="service" id="qandidate.toggle.collection" />
+        </service>
+
+        <service id="qandidate.toggle.user_context_factory" class="%qandidate.toggle.user_context_factory.class%">
+            <argument type="service" id="security.context" />
+        </service>
+
+        <service id="qandidate.toggle.twig_extension" class="%qandidate.toggle.twig_extension.class%">
+            <tag name="twig.extension" />
+            <argument type="service" id="qandidate.toggle.manager" />
+            <argument type="service" id="qandidate.toggle.context_factory" />
+        </service>
+    </services>
+</container>

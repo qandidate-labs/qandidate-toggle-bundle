@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+
+        <service id="qandidate.toggle.collection.predis" class="%qandidate.toggle.collection.predis.class%">
+            <argument>%qandidate.toggle.redis.namespace%</argument>
+            <argument type="service" id="qandidate.toggle.redis.client" />
+        </service>
+
+    </services>
+</container>
