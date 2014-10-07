@@ -41,7 +41,9 @@ class ToggleTwigExtensionTest extends PHPUnit_Framework_TestCase
     {
         $functions = $this->extension->getFunctions();
 
-        $this->assertEquals('is_active', key($functions));
+        $this->assertCount(1, $functions);
+        $this->assertInstanceof('Twig_SimpleFunction', $functions[0]);
+        $this->assertEquals('feature_is_active', $functions[0]->getName());
     }
 
     /**

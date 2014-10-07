@@ -14,7 +14,8 @@ namespace Qandidate\Bundle\ToggleBundle\Twig;
 use Qandidate\Toggle\ContextFactory;
 use Qandidate\Toggle\ToggleManager;
 use Twig_Extension;
-use Twig_Function_Method;
+use Twig_SimpleFunction;
+use Twig_SimpleTest;
 
 class ToggleTwigExtension extends Twig_Extension
 {
@@ -43,7 +44,17 @@ class ToggleTwigExtension extends Twig_Extension
     public function getFunctions()
     {
         return array(
-            'is_active' => new Twig_Function_Method($this, 'is_active'),
+            new Twig_SimpleFunction('feature_is_active', array($this, 'is_active')),
+        );
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getTests()
+    {
+        return array(
+            new Twig_SimpleTest('active feature', array($this, 'is_active')),
         );
     }
 
