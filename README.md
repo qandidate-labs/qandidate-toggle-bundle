@@ -19,7 +19,7 @@ Read the our blog post series about this repository at:
 Add the bundle to your composer.json
 
 ```bash
-$ composer require qandidate-labs/qandidate-toggle-bundle ~0.1
+$ composer require qandidate/toggle-bundle ~0.1
 ```
 
 Add the bundle to your Kernel
