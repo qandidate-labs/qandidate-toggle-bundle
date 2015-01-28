@@ -28,8 +28,21 @@ class Configuration implements ConfigurationInterface
         $rootNode
             ->children()
                 ->enumNode('persistence')
-                    ->values(array('in_memory', 'redis'))
+                    ->values(array('in_memory', 'redis', 'factory'))
                     ->defaultValue('in_memory')
+                ->end()
+                ->arrayNode('collection_factory')
+                    ->children()
+                        ->scalarNode('service_id')
+                            ->isRequired()
+                            ->cannotBeEmpty()
+                        ->end()
+                        ->scalarNode('method')
+                            ->isRequired()
+                            ->cannotBeEmpty()
+                        ->end()
+                    ->end()
+
                 ->end()
                 ->scalarNode('context_factory')
                     ->defaultNull()
@@ -40,6 +53,18 @@ class Configuration implements ConfigurationInterface
                 ->scalarNode('redis_client')
                     ->defaultNull()
                 ->end()
+
+            ->end()
+            ->validate()
+                ->ifTrue(function ($v) {
+                    if ($v['persistence'] === 'factory') {
+                        return ! isset($v['collection_factory']['service_id'], $v['collection_factory']['method']);
+                    }
+
+                    return false;
+                })
+            ->thenInvalid(
+                'When choosing "factory" persistence make sure you set "collection_factory.service_id" and "collection_factory.method"')
             ->end();
 
         return $treeBuilder;
