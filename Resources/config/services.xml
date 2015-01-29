@@ -10,6 +10,8 @@
         <parameter key="qandidate.toggle.collection.predis.class">Qandidate\Toggle\ToggleCollection\PredisCollection</parameter>
         <parameter key="qandidate.toggle.user_context_factory.class">Qandidate\Bundle\ToggleBundle\Context\UserContextFactory</parameter>
         <parameter key="qandidate.toggle.twig_extension.class">Qandidate\Bundle\ToggleBundle\Twig\ToggleTwigExtension</parameter>
+        <parameter key="qandidate.toggle.toggle.listener.class">Qandidate\Bundle\ToggleBundle\EventListener\ToggleListener</parameter>
+        <parameter key="qandidate.toggle.context.class">Qandidate\Toggle\Context</parameter>
     </parameters>
 
     <services>
@@ -29,5 +31,19 @@
             <argument type="service" id="qandidate.toggle.manager" />
             <argument type="service" id="qandidate.toggle.context_factory" />
         </service>
+
+        <service id="qandidate.toggle.context"
+                 class="%qandidate.toggle.context.class%"
+                 factory-service="qandidate.toggle.context_factory"
+                 factory-method="create">
+        </service>
+
+        <service id="qandidate.toggle.toggle.listener" class="%qandidate.toggle.toggle.listener.class%">
+            <argument type="service" id="annotation_reader" />
+            <argument type="service" id="qandidate.toggle.manager" />
+            <argument type="service" id="qandidate.toggle.context" />
+            <tag name="kernel.event_listener" event="kernel.controller" />
+        </service>
+
     </services>
 </container>
