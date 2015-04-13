@@ -1,0 +1,17 @@
+--TEST--
+"foobar" is active feature
+--TEMPLATE--
+{{ 'foo' is active feature ? 'yes' : 'no'}}
+{{ 'bar' is active feature ? 'yes' : 'no'}}
+{{ 'foobar' is active feature ? 'yes' : 'no'}}
+{% set baz = 'foo' %}
+{{ baz is active feature ? 'yes' : 'no'}}
+{{ feature_is_active('foo') ? 'yes' : 'no' }}
+--DATA--
+return array()
+--EXPECT--
+yes
+no
+no
+yes
+yes

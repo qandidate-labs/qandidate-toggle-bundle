@@ -82,13 +82,22 @@ public function articleAction(Request $request)
 
 ## Twig usage
 
-If you use Twig you can also use the Twig function:
+If you use Twig you can also use the function:
 
 ```jinja
-{% if is_active('comments') %}
+{% if feature_is_active('comments') %}
     {# Awesome comments #}
 {% endif %}
 ```
+Or the Twig test:
+
+```jinja
+{% if 'comments' is active feature %}
+    {# Awesome comments #}
+{% endif %}
+```
+
+Both are registered in the [ToggleTwigExtension](Twig/ToggleTwigExtension.php).
 
 ## License
 
