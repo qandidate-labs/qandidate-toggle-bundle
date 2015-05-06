@@ -35,7 +35,7 @@
         <service id="qandidate.toggle.context"
                  class="%qandidate.toggle.context.class%"
                  factory-service="qandidate.toggle.context_factory"
-                 factory-method="create">
+                 factory-method="createContext">
         </service>
 
         <service id="qandidate.toggle.toggle.listener" class="%qandidate.toggle.toggle.listener.class%">
