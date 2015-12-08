@@ -23,7 +23,7 @@
         </service>
 
         <service id="qandidate.toggle.user_context_factory" class="%qandidate.toggle.user_context_factory.class%">
-            <argument type="service" id="security.context" />
+            <argument type="service" id="security.token_storage" />
         </service>
 
         <service id="qandidate.toggle.twig_extension" class="%qandidate.toggle.twig_extension.class%">
@@ -33,9 +33,8 @@
         </service>
 
         <service id="qandidate.toggle.context"
-                 class="%qandidate.toggle.context.class%"
-                 factory-service="qandidate.toggle.context_factory"
-                 factory-method="createContext">
+                 class="%qandidate.toggle.context.class%">
+            <factory service="qandidate.toggle.context_factory" method="createContext" />
         </service>
 
         <service id="qandidate.toggle.toggle.listener" class="%qandidate.toggle.toggle.listener.class%">

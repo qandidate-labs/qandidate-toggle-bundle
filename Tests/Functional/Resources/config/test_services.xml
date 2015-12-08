@@ -6,7 +6,7 @@
 
     <services>
 
-        <service id="security.context" class="Qandidate\Bundle\ToggleBundle\Tests\SecurityContext" />
+        <service id="security.token_storage" class="Qandidate\Bundle\ToggleBundle\Tests\TokenStorage" />
         <service id="redis_client" class="Predis\Client" />
 
     </services>

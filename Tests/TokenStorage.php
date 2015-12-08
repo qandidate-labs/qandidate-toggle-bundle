@@ -11,10 +11,10 @@
 
 namespace Qandidate\Bundle\ToggleBundle\Tests;
 
-use Symfony\Component\Security\Core\SecurityContextInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
-class SecurityContext implements SecurityContextInterface
+class TokenStorage implements TokenStorageInterface
 {
     private $token;
 

@@ -176,7 +176,7 @@ class QandidateToggleExtensionTest extends PHPUnit_Framework_TestCase
 
     private function mockServiceDependencies()
     {
-        $this->containerBuilder->set('security.context', new \stdClass);
+        $this->containerBuilder->set('security.token_storage', new \stdClass);
         $this->containerBuilder->set('annotation_reader', new \stdClass);
     }
 }
