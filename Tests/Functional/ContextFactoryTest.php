@@ -20,7 +20,7 @@ class ContextFactoryTest extends WebTestCase
         parent::setUp();
 
         $this->client = static::createClient();
-        $this->client->getContainer()->get('security.context')->setToken($this->createSecurityToken());
+        $this->client->getContainer()->get('security.token_storage')->setToken($this->createSecurityToken());
     }
 
     /**
