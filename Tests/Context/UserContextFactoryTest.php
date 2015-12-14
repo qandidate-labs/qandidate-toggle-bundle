@@ -12,15 +12,15 @@
 namespace Qandidate\Bundle\ToggleBundle\Context;
 
 use PHPUnit_Framework_TestCase;
-use Qandidate\Bundle\ToggleBundle\Tests\SecurityContext;
+use Qandidate\Bundle\ToggleBundle\Tests\TokenStorage;
 use Symfony\Component\Security\Core\Authentication\Token\AnonymousToken;
 
 class UserContextFactoryTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        $this->securityContext = new SecurityContext();
-        $this->contextFactory  = new UserContextFactory($this->securityContext);
+        $this->tokenStorage = new TokenStorage();
+        $this->contextFactory  = new UserContextFactory($this->tokenStorage);
     }
 
     /**
@@ -28,7 +28,7 @@ class UserContextFactoryTest extends PHPUnit_Framework_TestCase
      */
     public function it_should_set_the_username_when_available()
     {
-        $this->securityContext->setToken(new AnonymousToken('key', 'foobar'));
+        $this->tokenStorage->setToken(new AnonymousToken('key', 'foobar'));
 
         $this->assertEquals('foobar', $this->contextFactory->createContext()->get('username'));
     }
