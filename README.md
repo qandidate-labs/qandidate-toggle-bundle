@@ -18,8 +18,16 @@ Read the our blog post series about this repository at:
 
 Add the bundle to your composer.json
 
+### Symfony >= 2.6
+
 ```bash
-$ composer require qandidate/toggle-bundle ~0.1
+$ composer require qandidate/toggle-bundle ^0.4
+```
+
+### Symfony >= 2.3, < 2.6
+
+```bash
+$ composer require qandidate/toggle-bundle ^0.3.2
 ```
 
 Add the bundle to your Kernel
