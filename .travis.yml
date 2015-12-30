@@ -7,9 +7,24 @@ php:
   - hhvm
   - hhvm-nightly
 
+env:
+  - SYMFONY_VERSION="2.7.*"
+  - SYMFONY_VERSION="2.8.*"
+  - SYMFONY_VERSION="3.0.*"
+
 matrix:
     allow_failures:
         - php: hhvm
         - php: hhvm-nightly
 
-install: composer install
+install:
+   - composer self-update
+   - composer require symfony/framework-bundle:${SYMFONY_VERSION} --no-update --dev
+   - composer update --prefer-dist --no-interaction
+
+script:
+  - phpunit
+
+branches:
+  only:
+    - master
