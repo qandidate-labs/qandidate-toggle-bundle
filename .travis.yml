@@ -1,16 +1,28 @@
 language: php
 
 php:
-  - 5.3
-  - 5.4
   - 5.5
   - 5.6
+  - 7
   - hhvm
   - hhvm-nightly
+
+env:
+  - SYMFONY_VERSION="2.3.*"
 
 matrix:
     allow_failures:
         - php: hhvm
         - php: hhvm-nightly
 
-install: composer install
+install:
+   - composer self-update
+   - composer require symfony/symfony:${SYMFONY_VERSION} --no-update --dev
+   - composer update --prefer-lowest --prefer-dist --no-interaction
+
+script:
+  - phpunit
+
+branches:
+  only:
+    - master

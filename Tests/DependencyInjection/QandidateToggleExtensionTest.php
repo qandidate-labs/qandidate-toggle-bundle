@@ -107,12 +107,9 @@ class QandidateToggleExtensionTest extends PHPUnit_Framework_TestCase
         )), $this->containerBuilder);
 
         $definition = $this->containerBuilder->getDefinition('qandidate.toggle.collection.factory');
-        $factory = $definition->getFactory();
-        $this->assertArrayHasKey(0, $factory);
-        $this->assertArrayHasKey(1, $factory);
-        $this->assertInstanceOf('Symfony\Component\DependencyInjection\Reference', $factory[0]);
-        $this->assertSame('factory.service.id', (string) $factory[0]);
-        $this->assertSame('create', $factory[1]);
+        $this->assertInstanceOf('Symfony\Component\DependencyInjection\Reference', $definition->getFactoryClass());
+        $this->assertSame('factory.service.id', (string) $definition->getFactoryClass());
+        $this->assertSame('create', $definition->getFactoryMethod());
     }
 
     /**

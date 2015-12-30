@@ -47,10 +47,8 @@ class QandidateToggleExtension extends Extension
             case 'factory' === $config['persistence']:
                 $collection = 'factory';
                 $definition = new DefinitionDecorator('qandidate.toggle.collection.in_memory');
-                $definition->setFactory(array(
-                    new Reference($config['collection_factory']['service_id']),
-                    $config['collection_factory']['method']
-                ));
+                $definition->setFactoryClass(new Reference($config['collection_factory']['service_id']));
+                $definition->setFactoryMethod($config['collection_factory']['method']);
 
                 $container->setDefinition('qandidate.toggle.collection.factory', $definition);
                 break;
