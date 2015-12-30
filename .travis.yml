@@ -19,7 +19,7 @@ install:
    - composer self-update
    - composer require symfony/framework-bundle:${SYMFONY_VERSION} --no-update --dev
    - composer require symfony/security:${SYMFONY_VERSION} --no-update --dev
-   - composer update --prefer-dist --no-interaction
+   - composer update --prefer-lowest --prefer-dist --no-interaction
 
 script:
   - phpunit
