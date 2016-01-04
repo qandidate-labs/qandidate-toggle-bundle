@@ -31,5 +31,10 @@
     "suggests": {
         "twig/twig": "For using the twig helper"
     },
-    "minimal-stability": "dev"
+    "minimal-stability": "dev",
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.4.x"
+        }
+    }
 }
