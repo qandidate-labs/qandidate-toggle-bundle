@@ -1,5 +1,6 @@
 {
     "name": "qandidate/toggle-bundle",
+    "description": "This Bundle provides the integration with qandidate/toggle. It provides the services and configuration you need to implement feature toggles in your Symfony application.",
     "type": "symfony-bundle",
     "license": "MIT",
     "authors": [
@@ -28,10 +29,9 @@
         "twig/twig": "~1.16,>=1.16.2",
         "symfony/twig-bundle": "^2.7.0"
     },
-    "suggests": {
+    "suggest": {
         "twig/twig": "For using the twig helper"
     },
-    "minimal-stability": "dev",
     "extra": {
         "branch-alias": {
             "dev-master": "0.4.x"
