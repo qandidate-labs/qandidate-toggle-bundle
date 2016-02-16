@@ -99,6 +99,14 @@ Or the Twig test:
 
 Both are registered in the [ToggleTwigExtension](Twig/ToggleTwigExtension.php).
 
+## Testing
+
+To run PHPUnit tests:
+
+```bash
+$ ./vendor/bin/phpunit
+```
+
 ## License
 
 MIT, see LICENSE.
