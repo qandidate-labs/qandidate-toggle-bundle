@@ -19,7 +19,7 @@
         }
     },
     "require": {
-        "qandidate/toggle": "~0.1|~1.0",
+        "qandidate/toggle": "~1.0",
         "symfony/framework-bundle": "~2.7|~3.0",
         "doctrine/common": "~2.2"
     },
