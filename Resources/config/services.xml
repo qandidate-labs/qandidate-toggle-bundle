@@ -7,7 +7,6 @@
     <parameters>
         <parameter key="qandidate.toggle.manager.class">Qandidate\Toggle\ToggleManager</parameter>
         <parameter key="qandidate.toggle.collection.in_memory.class">Qandidate\Toggle\ToggleCollection\InMemoryCollection</parameter>
-        <parameter key="qandidate.toggle.collection.symfony.class">Qandidate\Toggle\ToggleCollection\InMemoryCollection</parameter>
         <parameter key="qandidate.toggle.collection.predis.class">Qandidate\Toggle\ToggleCollection\PredisCollection</parameter>
         <parameter key="qandidate.toggle.user_context_factory.class">Qandidate\Bundle\ToggleBundle\Context\UserContextFactory</parameter>
         <parameter key="qandidate.toggle.twig_extension.class">Qandidate\Bundle\ToggleBundle\Twig\ToggleTwigExtension</parameter>
@@ -20,7 +19,7 @@
 
         <service id="qandidate.toggle.collection.in_memory" class="%qandidate.toggle.collection.in_memory.class%" />
         <service id="qandidate.toggle.collection.symfony" class="Qandidate\Bundle\ToggleBundle\Factory\SymfonyCollection">
-            <argument>%qandidate.toggle.parameters%</argument>
+            <argument type="collection">%qandidate.toggle.parameters%</argument>
         </service>
 
         <service id="qandidate.toggle.manager" class="%qandidate.toggle.manager.class%">
