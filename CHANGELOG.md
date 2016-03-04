@@ -1,17 +1,14 @@
 # Changelog
 
+## 0.4.x
+
+- [BC BREAK] Updated the symfony dependency to 2.7
+- Added support for collection_factory
+
 ## 0.3.x
 
-
-#### BC breaks
-
-- The twig function has been renamed from `is_active` to `feature_is_active`
-
-
-#### Other changes
-
+- [BC BREAK] The twig function has been renamed from `is_active` to `feature_is_active`
 - Added a twig test `is active feature`
-
 
 ## 0.2.x
 
