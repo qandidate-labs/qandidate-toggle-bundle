@@ -19,7 +19,7 @@
         }
     },
     "require": {
-        "qandidate/toggle": "~0.1",
+        "qandidate/toggle": "~1.0",
         "symfony/framework-bundle": "^2.7.0",
         "doctrine/common": "~2.2"
     },
@@ -31,10 +31,5 @@
     },
     "suggest": {
         "twig/twig": "For using the twig helper"
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "0.5.x-dev"
-        }
     }
 }
