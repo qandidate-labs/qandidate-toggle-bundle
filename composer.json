@@ -31,10 +31,5 @@
     },
     "suggest": {
         "twig/twig": "For using the twig helper"
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "0.5.x-dev"
-        }
     }
 }
