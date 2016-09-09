@@ -118,24 +118,6 @@ class QandidateToggleExtensionTest extends PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function it_should_create_the_toggle_collection_factory_for_symfony()
-    {
-        $this->extension->load(array(array(
-            'persistence' => 'symfony',
-        )), $this->containerBuilder);
-
-        $definition = $this->containerBuilder->getDefinition('qandidate.toggle.collection.factory');
-        $factory = $definition->getFactory();
-        $this->assertArrayHasKey(0, $factory);
-        $this->assertArrayHasKey(1, $factory);
-        $this->assertInstanceOf('Symfony\Component\DependencyInjection\Reference', $factory[0]);
-        $this->assertSame('qandidate.toggle.collection.symfony', (string) $factory[0]);
-        $this->assertSame('getToggles', $factory[1]);
-    }
-
-    /**
-     * @test
-     */
     public function it_should_register_the_manager()
     {
         $this->extension->load(array(), $this->containerBuilder);

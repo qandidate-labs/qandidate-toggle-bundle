@@ -13,14 +13,14 @@
         <parameter key="qandidate.toggle.twig_extension.class">Qandidate\Bundle\ToggleBundle\Twig\ToggleTwigExtension</parameter>
         <parameter key="qandidate.toggle.toggle.listener.class">Qandidate\Bundle\ToggleBundle\EventListener\ToggleListener</parameter>
         <parameter key="qandidate.toggle.context.class">Qandidate\Toggle\Context</parameter>
-        <parameter key="qandidate.toggle.parameters"></parameter>
+        <parameter key="qandidate.parameter"></parameter>
     </parameters>
 
     <services>
 
         <service id="qandidate.toggle.collection.in_memory" class="%qandidate.toggle.collection.in_memory.class%" />
-        <service id="qandidate.toggle.collection.symfony" class="Qandidate\Bundle\ToggleBundle\Factory\SymfonyCollection">
-            <argument>%qandidate.toggle.parameters%</argument>
+        <service id="qandidate.test" class="Qandidate\Bundle\ToggleBundle\Factory\SymfonyCollection">
+            <argument>%qandidate.parameter%</argument>
         </service>
 
         <service id="qandidate.toggle.manager" class="%qandidate.toggle.manager.class%">
