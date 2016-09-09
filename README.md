@@ -34,34 +34,10 @@ $bundles = array(
 
 ```yaml
 qandidate_toggle:
-    persistence: in_memory|redis|factory|symfony
+    persistence: in_memory|redis
     context_factory: null|your.context_factory.service.id
     redis_namespace: toggle_%kernel.environment% # default, only required when persistence = redis
     redis_client: null|your.redis_client.service.id # only required when persistence = redis
-```
-
-## Sample Configuration for Symfony
-
-```yaml
-qandidate_toggle:
-    persistence: symfony
-    toggles:
-      - name: someature
-        conditions:
-         - name: operator-condition
-           key: some
-           operator:
-             name: greater-than
-             value: 1
-           status: active
-      - name: some-feature2
-        conditions:
-         - name: operator-condition
-           key: user_id
-           operator:
-               name: greater-than
-               value: 42
-           status: conditionally-active
 ```
 
 ## Example usage
