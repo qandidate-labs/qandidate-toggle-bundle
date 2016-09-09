@@ -18,4 +18,9 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 class QandidateToggleBundle extends Bundle
 {
 
+
+    public function getContainerExtension()
+    {
+        return new QandidateToggleExtension();
+    }
 }
