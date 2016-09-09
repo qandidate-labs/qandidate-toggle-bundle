@@ -19,7 +19,7 @@
 
         <service id="qandidate.toggle.collection.in_memory" class="%qandidate.toggle.collection.in_memory.class%" />
         <service id="qandidate.toggle.collection.symfony" class="Qandidate\Bundle\ToggleBundle\Factory\SymfonyCollection">
-            <argument>%qandidate.toggle.parameters%</argument>
+            <argument type="collection">%qandidate.toggle.parameters%</argument>
         </service>
 
         <service id="qandidate.toggle.manager" class="%qandidate.toggle.manager.class%">
