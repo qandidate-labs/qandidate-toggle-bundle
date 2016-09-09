@@ -152,4 +152,23 @@ class QandidateToggleExtensionTest extends AbstractExtensionTestCase
 
         $this->assertContainerBuilderHasAlias('qandidate.toggle.context_factory', 'acme.yolo');
     }
+
+
+    /**
+     * @test
+     */
+    public function it_should_create_the_toggle_collection_factory_for_symfony()
+    {
+        $this->extension->load(array(array(
+            'persistence' => 'symfony',
+        )), $this->containerBuilder);
+
+        $definition = $this->containerBuilder->getDefinition('qandidate.toggle.collection.factory');
+        $factory = $definition->getFactory();
+        $this->assertArrayHasKey(0, $factory);
+        $this->assertArrayHasKey(1, $factory);
+        $this->assertInstanceOf('Symfony\Component\DependencyInjection\Reference', $factory[0]);
+        $this->assertSame('qandidate.toggle.collection.symfony', (string) $factory[0]);
+        $this->assertSame('getToggles', $factory[1]);
+    }
 }
