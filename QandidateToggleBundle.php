@@ -11,8 +11,11 @@
 
 namespace Qandidate\Bundle\ToggleBundle;
 
+use Qandidate\Bundle\ToggleBundle\DependencyInjection\QandidateToggleExtension;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 class QandidateToggleBundle extends Bundle
 {
+
 }
