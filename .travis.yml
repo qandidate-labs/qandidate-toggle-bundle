@@ -24,7 +24,7 @@ install:
    - composer update --prefer-dist --no-interaction
 
 script:
-  - phpunit
+  - vendor/bin/phpunit
 
 branches:
   only:
