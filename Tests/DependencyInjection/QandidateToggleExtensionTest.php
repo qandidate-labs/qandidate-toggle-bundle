@@ -129,7 +129,7 @@ class QandidateToggleExtensionTest extends PHPUnit_Framework_TestCase
         $this->assertArrayHasKey(0, $factory);
         $this->assertArrayHasKey(1, $factory);
         $this->assertInstanceOf('Symfony\Component\DependencyInjection\Reference', $factory[0]);
-        $this->assertSame('qandidate.toggle.collection.symfony', (string) $factory[0]);
+        $this->assertSame('qandidate.toggle.collection.factory.in_memory', (string) $factory[0]);
         $this->assertSame('getToggles', $factory[1]);
     }
 
