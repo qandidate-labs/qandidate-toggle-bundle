@@ -7,16 +7,26 @@
     <parameters>
         <parameter key="qandidate.toggle.manager.class">Qandidate\Toggle\ToggleManager</parameter>
         <parameter key="qandidate.toggle.collection.in_memory.class">Qandidate\Toggle\ToggleCollection\InMemoryCollection</parameter>
+        <parameter key="qandidate.toggle.collection.factory.in_memory.class">Qandidate\Bundle\ToggleBundle\Factory\InMemoryCollectionFactory</parameter>
+        <parameter key="qandidate.toggle.collection.serializer.in_memory.class">Qandidate\Toggle\Serializer\InMemoryCollectionSerializer</parameter>
         <parameter key="qandidate.toggle.collection.predis.class">Qandidate\Toggle\ToggleCollection\PredisCollection</parameter>
         <parameter key="qandidate.toggle.user_context_factory.class">Qandidate\Bundle\ToggleBundle\Context\UserContextFactory</parameter>
         <parameter key="qandidate.toggle.twig_extension.class">Qandidate\Bundle\ToggleBundle\Twig\ToggleTwigExtension</parameter>
         <parameter key="qandidate.toggle.toggle.listener.class">Qandidate\Bundle\ToggleBundle\EventListener\ToggleListener</parameter>
         <parameter key="qandidate.toggle.context.class">Qandidate\Toggle\Context</parameter>
+        <parameter key="qandidate.toggle.parameters"></parameter>
     </parameters>
 
     <services>
 
         <service id="qandidate.toggle.collection.in_memory" class="%qandidate.toggle.collection.in_memory.class%" />
+
+        <service id="qandidate.toggle.collection.serializer.in_memory" class="%qandidate.toggle.collection.serializer.in_memory.class%" />
+
+        <service id="qandidate.toggle.collection.factory.in_memory" class="%qandidate.toggle.collection.factory.in_memory.class%">
+            <argument>%qandidate.toggle.parameters%</argument>
+            <argument type="service" id="qandidate.toggle.collection.serializer.in_memory" />
+        </service>
 
         <service id="qandidate.toggle.manager" class="%qandidate.toggle.manager.class%">
             <argument type="service" id="qandidate.toggle.collection" />

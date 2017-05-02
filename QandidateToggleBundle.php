@@ -15,4 +15,5 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 class QandidateToggleBundle extends Bundle
 {
+
 }
