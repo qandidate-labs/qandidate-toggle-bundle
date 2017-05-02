@@ -17,7 +17,7 @@ use Qandidate\Toggle\Serializer\InMemoryCollectionSerializer;
  * Class SymfonyCollection
  * @package Qandidate\Bundle\ToggleBundle\Factory
  */
-class SymfonyCollection
+class InMemoryCollectionFactory
 {
     /**
      * @var array
@@ -25,12 +25,18 @@ class SymfonyCollection
     private $config;
 
     /**
-     * SymfonyCollection constructor.
-     * @param array $config
+     * @var InMemoryCollectionSerializer
      */
-    public function __construct(array $config)
+    private $serializer;
+
+    /**
+     * @param array $config
+     * @param InMemoryCollectionSerializer $serializer
+     */
+    public function __construct(array $config, InMemoryCollectionSerializer $serializer)
     {
         $this->config = $config;
+        $this->serializer = $serializer;
     }
 
     /**
@@ -38,7 +44,6 @@ class SymfonyCollection
      */
     public function getToggles()
     {
-        $serializer = new InMemoryCollectionSerializer();
-        return $serializer->deserialize($this->config);
+        return $this->serializer->deserialize($this->config);
     }
 }

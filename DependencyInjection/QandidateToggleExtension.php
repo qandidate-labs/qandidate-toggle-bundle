@@ -63,7 +63,7 @@ class QandidateToggleExtension extends Extension
                 $collection = 'factory';
                 $definition = new DefinitionDecorator('qandidate.toggle.collection.in_memory');
                 $definition->setFactory(array(
-                    new Reference('qandidate.toggle.collection.symfony'),
+                    new Reference('qandidate.toggle.collection.factory.in_memory'),
                     'getToggles'
                 ));
 
