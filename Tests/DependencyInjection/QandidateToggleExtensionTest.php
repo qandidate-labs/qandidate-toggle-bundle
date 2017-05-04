@@ -11,102 +11,97 @@
 
 namespace Qandidate\Bundle\ToggleBundle\DependencyInjection;
 
-use PHPUnit_Framework_TestCase;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
+use Qandidate\Toggle\ToggleCollection\PredisCollection;
+use Qandidate\Toggle\ToggleManager;
 
-class QandidateToggleExtensionTest extends PHPUnit_Framework_TestCase
+class QandidateToggleExtensionTest extends AbstractExtensionTestCase
 {
-    private $containerBuilder;
-    private $extension;
-
-    public function setUp()
+    /**
+     * {@inheritdoc}
+     */
+    protected function getContainerExtensions()
     {
-        $this->containerBuilder = new ContainerBuilder();
-        $this->extension        = new QandidateToggleExtension();
-
-        $this->containerBuilder->setParameter('kernel.bundles', array());
+        return [
+            new QandidateToggleExtension(),
+        ];
     }
 
     /**
      * @test
      */
-    public function it_should_build_the_container_with_empty_config()
+    public function it_builds_the_container_with_empty_config()
     {
-        $this->mockServiceDependencies();
-
-        $this->extension->load(array(), $this->containerBuilder);
-        $this->containerBuilder->compile();
+        $this->load();
     }
 
     /**
      * @test
      */
-    public function it_should_alias_in_memory_collection_with_empty_config()
+    public function it_aliases_the_in_memory_collection_by_default()
     {
-        $this->extension->load(array(), $this->containerBuilder);
-        $this->assertAlias('qandidate.toggle.collection.in_memory', 'qandidate.toggle.collection');
+        $this->load();
+        $this->assertContainerBuilderHasAlias('qandidate.toggle.collection', 'qandidate.toggle.collection.in_memory');
     }
 
     /**
      * @test
      */
-    public function it_should_alias_redis_collection_when_configured()
+    public function it_aliases_the_redis_collection_when_configured()
     {
-        $this->extension->load(array(array(
+        $this->load([
             'persistence'     => 'redis',
             'redis_namespace' => 'toggle',
             'redis_client'    => 'redis_client',
+        ]);
 
-        )), $this->containerBuilder);
-
-        $this->assertAlias('qandidate.toggle.collection.predis', 'qandidate.toggle.collection');
-        $this->assertAlias('redis_client', 'qandidate.toggle.redis.client');
-        $this->assertParameter('toggle', 'qandidate.toggle.redis.namespace');
+        $this->assertContainerBuilderHasAlias('qandidate.toggle.collection', 'qandidate.toggle.collection.predis');
+        $this->assertContainerBuilderHasAlias('qandidate.toggle.redis.client', 'redis_client');
+        $this->assertContainerBuilderHasParameter('qandidate.toggle.redis.namespace', 'toggle');
     }
 
     /**
      * @test
      */
-    public function it_should_load_the_redis_service_file_when_configuring_the_redis_collection()
+    public function it_loads_the_redis_service_file_when_configuring_the_redis_collection()
     {
-        $this->extension->load(array(array(
+        $this->load([
             'persistence'     => 'redis',
             'redis_namespace' => 'toggle',
             'redis_client'    => 'redis_client',
+        ]);
 
-        )), $this->containerBuilder);
-
-        $this->assertTrue($this->containerBuilder->hasDefinition('qandidate.toggle.collection.predis'));
+        $this->assertContainerBuilderHasService('qandidate.toggle.collection.predis', PredisCollection::class);
     }
 
     /**
      * @test
      */
-    public function it_should_default_the_redis_namespace()
+    public function it_sets_the_default_redis_namespace()
     {
-        $this->extension->load(array(array(
+        $this->load([
             'persistence'  => 'redis',
             'redis_client' => 'redis_client',
 
-        )), $this->containerBuilder);
+        ]);
 
-        $this->assertParameter('toggle_%kernel.environment%', 'qandidate.toggle.redis.namespace');
+        $this->assertContainerBuilderHasParameter('qandidate.toggle.redis.namespace', 'toggle_%kernel.environment%');
     }
 
     /**
      * @test
      */
-    public function it_should_create_the_toggle_collection_factory_definition()
+    public function it_creates_the_toggle_collection_factory_definition()
     {
-        $this->extension->load(array(array(
+        $this->load([
             'persistence' => 'factory',
-            'collection_factory' => array(
+            'collection_factory' => [
                 'service_id'    => 'factory.service.id',
-                'method'        => 'create'
-            ),
-        )), $this->containerBuilder);
+                'method'        => 'create',
+            ],
+        ]);
 
-        $definition = $this->containerBuilder->getDefinition('qandidate.toggle.collection.factory');
+        $definition = $this->container->getDefinition('qandidate.toggle.collection.factory');
         $factory = $definition->getFactory();
         $this->assertArrayHasKey(0, $factory);
         $this->assertArrayHasKey(1, $factory);
@@ -118,65 +113,43 @@ class QandidateToggleExtensionTest extends PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function it_should_register_the_manager()
+    public function it_registers_the_manager()
     {
-        $this->extension->load(array(), $this->containerBuilder);
+        $this->load();
 
-        $this->assertTrue($this->containerBuilder->hasDefinition('qandidate.toggle.manager'));
-
-        $definition = $this->containerBuilder->getDefinition('qandidate.toggle.manager');
-        $arguments = $definition->getArguments();
-
-        $this->assertCount(1, $arguments);
-        $this->assertEquals('qandidate.toggle.collection', (string) $arguments[0]);
+        $this->assertContainerBuilderHasServiceDefinitionWithArgument('qandidate.toggle.manager', 0, 'qandidate.toggle.collection');
+        $this->assertContainerBuilderHasService('qandidate.toggle.manager', ToggleManager::class);
     }
 
     /**
      * @test
      */
-    public function it_should_register_the_twig_extension()
+    public function it_registers_the_twig_extension()
     {
-        $this->extension->load(array(), $this->containerBuilder);
+        $this->load();
 
-        $this->assertTrue($this->containerBuilder->hasDefinition('qandidate.toggle.twig_extension'));
-
-        $definition = $this->containerBuilder->getDefinition('qandidate.toggle.twig_extension');
-        $this->assertArrayHasKey('twig.extension', $definition->getTags());
+        $this->assertContainerBuilderHasServiceDefinitionWithTag('qandidate.toggle.twig_extension', 'twig.extension');
     }
 
     /**
      * @test
      */
-    public function it_should_create_the_context_factory_alias()
+    public function it_creates_the_context_factory_alias()
     {
-        $this->extension->load(array(), $this->containerBuilder);
+        $this->load();
 
-        $this->assertAlias('qandidate.toggle.user_context_factory', 'qandidate.toggle.context_factory');
+        $this->assertContainerBuilderHasAlias('qandidate.toggle.context_factory', 'qandidate.toggle.user_context_factory');
     }
 
     /**
      * @test
      */
-    public function it_should_alias_the_context_factory_to_configured_service()
+    public function it_aliases_the_context_factory_to_configured_service()
     {
-        $this->extension->load(array(array('context_factory' => 'acme.yolo')), $this->containerBuilder);
+        $this->load([
+            'context_factory' => 'acme.yolo',
+        ]);
 
-        $this->assertAlias('acme.yolo', 'qandidate.toggle.context_factory');
-    }
-
-    private function assertAlias($value, $alias)
-    {
-        $this->assertEquals($value, (string) $this->containerBuilder->getAlias($alias), sprintf('%s alias is not correct', $alias));
-    }
-
-    private function assertParameter($value, $parameter)
-    {
-        $this->assertEquals($value, (string) $this->containerBuilder->getParameter($parameter), sprintf('%s parameter is not correct', $parameter));
-    }
-
-    private function mockServiceDependencies()
-    {
-        $this->containerBuilder->set('security.token_storage', new \stdClass);
-        $this->containerBuilder->set('annotation_reader', new \stdClass);
+        $this->assertContainerBuilderHasAlias('qandidate.toggle.context_factory', 'acme.yolo');
     }
 }
