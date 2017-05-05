@@ -54,13 +54,13 @@ class QandidateToggleExtension extends Extension
 
                 break;
             case 'symfony' === $config['persistence']:
-                $container->setParameter('qandidate.toggle.parameters', $config['toggles']);
                 $collection = 'factory';
                 $definition = $container->getDefinition('qandidate.toggle.collection.in_memory');
                 $definition->setFactory(array(
-                    new Reference('qandidate.toggle.collection.factory.in_memory'),
-                    'getToggles'
+                    new Reference('qandidate.toggle.collection.serializer.in_memory'),
+                    'deserialize'
                 ));
+                $definition->addArgument($config['toggles']);
 
                 $container->setDefinition('qandidate.toggle.collection.factory', $definition);
                 break;
