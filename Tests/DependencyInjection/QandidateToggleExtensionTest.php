@@ -12,6 +12,8 @@
 namespace Qandidate\Bundle\ToggleBundle\DependencyInjection;
 
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
+use Qandidate\Toggle\Toggle;
+use Qandidate\Toggle\ToggleCollection\InMemoryCollection;
 use Qandidate\Toggle\ToggleCollection\PredisCollection;
 use Qandidate\Toggle\ToggleManager;
 
@@ -153,22 +155,46 @@ class QandidateToggleExtensionTest extends AbstractExtensionTestCase
         $this->assertContainerBuilderHasAlias('qandidate.toggle.context_factory', 'acme.yolo');
     }
 
-
     /**
      * @test
      */
-    public function it_should_create_the_toggle_collection_factory_for_symfony()
+    public function it_creates_the_toggle_collection_factory_for_symfony()
     {
-        $this->extension->load(array(array(
+        $this->load([
             'persistence' => 'symfony',
-        )), $this->containerBuilder);
+        ]);
 
-        $definition = $this->containerBuilder->getDefinition('qandidate.toggle.collection.factory');
+        $definition = $this->container->getDefinition('qandidate.toggle.collection.factory');
         $factory = $definition->getFactory();
         $this->assertArrayHasKey(0, $factory);
         $this->assertArrayHasKey(1, $factory);
         $this->assertInstanceOf('Symfony\Component\DependencyInjection\Reference', $factory[0]);
-        $this->assertSame('qandidate.toggle.collection.symfony', (string) $factory[0]);
+        $this->assertSame('qandidate.toggle.collection.factory.in_memory', (string) $factory[0]);
         $this->assertSame('getToggles', $factory[1]);
+    }
+
+    /**
+     * @test
+     */
+    public function it_creates_a_toggle_collection_from_config()
+    {
+        $this->load([
+            'persistence' => 'symfony',
+            'toggles' => [
+                'some_feature' => [
+                    'name'   => 'some_feature',
+                    'status' => 'conditionally-active',
+                ],
+            ],
+        ]);
+
+        $this->compile();
+        $toggleCollection = $this->container->get('qandidate.toggle.collection');
+        $this->assertInstanceOf(InMemoryCollection::class, $toggleCollection);
+
+        $toggles = $toggleCollection->all();
+        $this->assertCount(1, $toggles);
+
+        $this->assertEquals(new Toggle('some_feature', []), $toggles['some_feature']);
     }
 }

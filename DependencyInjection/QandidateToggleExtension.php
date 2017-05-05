@@ -11,14 +11,9 @@
 
 namespace Qandidate\Bundle\ToggleBundle\DependencyInjection;
 
-use Qandidate\Toggle\Serializer\InMemoryCollectionSerializer;
-use Qandidate\Toggle\ToggleCollection\InMemoryCollection;
-use Qandidate\Toggle\ToggleCollection\InMemoryCollectionTest;
-use Qandidate\Toggle\ToggleManager;
 use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\DefinitionDecorator;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\DependencyInjection\Reference;
@@ -61,7 +56,7 @@ class QandidateToggleExtension extends Extension
             case 'symfony' === $config['persistence']:
                 $container->setParameter('qandidate.toggle.parameters', $config['toggles']);
                 $collection = 'factory';
-                $definition = new DefinitionDecorator('qandidate.toggle.collection.in_memory');
+                $definition = $container->getDefinition('qandidate.toggle.collection.in_memory');
                 $definition->setFactory(array(
                     new Reference('qandidate.toggle.collection.factory.in_memory'),
                     'getToggles'
