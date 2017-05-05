@@ -48,7 +48,7 @@ qandidate_toggle:
     toggles:
       somefeature:
         name: somefeature
-        status: active
+        status: always-active
         conditions:
          - name: operator-condition
            key: some
