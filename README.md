@@ -46,21 +46,15 @@ qandidate_toggle:
 qandidate_toggle:
     persistence: symfony
     toggles:
-      somefeature:
-        name: somefeature
+      always-active-feature:
+        name: always-active-feature
         status: always-active
-        conditions:
-         - name: operator-condition
-           key: some
-           operator:
-             name: greater-than
-             value: 1
-      inactivefeature:
-        name: inactivefeature
+      inactive-feature:
+        name: inactive-feature
         status: inactive
         conditions: 
-      somefeature2:
-        name: somefeature2
+      conditionally-active:
+        name: conditionally-active
         status: conditionally-active
         conditions:
          - name: operator-condition
@@ -68,7 +62,6 @@ qandidate_toggle:
            operator:
                name: greater-than
                value: 42
-
 ```
 
 ## Example usage
