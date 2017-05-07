@@ -12,6 +12,8 @@
 namespace Qandidate\Bundle\ToggleBundle\DependencyInjection;
 
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
+use Qandidate\Toggle\Toggle;
+use Qandidate\Toggle\ToggleCollection\InMemoryCollection;
 use Qandidate\Toggle\ToggleCollection\PredisCollection;
 use Qandidate\Toggle\ToggleManager;
 
@@ -151,5 +153,30 @@ class QandidateToggleExtensionTest extends AbstractExtensionTestCase
         ]);
 
         $this->assertContainerBuilderHasAlias('qandidate.toggle.context_factory', 'acme.yolo');
+    }
+
+    /**
+     * @test
+     */
+    public function it_creates_a_toggle_collection_from_config()
+    {
+        $this->load([
+            'persistence' => 'config',
+            'toggles' => [
+                'some_feature' => [
+                    'name'   => 'some_feature',
+                    'status' => 'conditionally-active',
+                ],
+            ],
+        ]);
+
+        $this->compile();
+        $toggleCollection = $this->container->get('qandidate.toggle.collection');
+        $this->assertInstanceOf(InMemoryCollection::class, $toggleCollection);
+
+        $toggles = $toggleCollection->all();
+        $this->assertCount(1, $toggles);
+
+        $this->assertEquals(new Toggle('some_feature', []), $toggles['some_feature']);
     }
 }

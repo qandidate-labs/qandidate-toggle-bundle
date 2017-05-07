@@ -34,10 +34,34 @@ $bundles = array(
 
 ```yaml
 qandidate_toggle:
-    persistence: in_memory|redis
+    persistence: in_memory|redis|factory|config
     context_factory: null|your.context_factory.service.id
     redis_namespace: toggle_%kernel.environment% # default, only required when persistence = redis
     redis_client: null|your.redis_client.service.id # only required when persistence = redis
+```
+
+## Sample Configuration for Symfony
+
+```yaml
+qandidate_toggle:
+    persistence: config
+    toggles:
+      always-active-feature:
+        name: always-active-feature
+        status: always-active
+      inactive-feature:
+        name: inactive-feature
+        status: inactive
+        conditions: 
+      conditionally-active:
+        name: conditionally-active
+        status: conditionally-active
+        conditions:
+         - name: operator-condition
+           key: user_id
+           operator:
+               name: greater-than
+               value: 42
 ```
 
 ## Example usage
@@ -98,6 +122,14 @@ Or the Twig test:
 ```
 
 Both are registered in the [ToggleTwigExtension](Twig/ToggleTwigExtension.php).
+
+## Testing
+
+To run PHPUnit tests:
+
+```bash
+$ ./vendor/bin/phpunit
+```
 
 ## License
 

@@ -16,5 +16,4 @@
       <directory>./Tests/</directory>
     </testsuite>
   </testsuites>
-
 </phpunit>
