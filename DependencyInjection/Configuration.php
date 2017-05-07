@@ -28,7 +28,7 @@ class Configuration implements ConfigurationInterface
         $rootNode
             ->children()
                 ->enumNode('persistence')
-                    ->values(array('in_memory', 'redis', 'factory', 'symfony'))
+                    ->values(array('in_memory', 'redis', 'factory', 'config'))
                     ->defaultValue('in_memory')
                 ->end()
                 ->arrayNode('collection_factory')

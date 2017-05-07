@@ -161,7 +161,7 @@ class QandidateToggleExtensionTest extends AbstractExtensionTestCase
     public function it_creates_a_toggle_collection_from_config()
     {
         $this->load([
-            'persistence' => 'symfony',
+            'persistence' => 'config',
             'toggles' => [
                 'some_feature' => [
                     'name'   => 'some_feature',

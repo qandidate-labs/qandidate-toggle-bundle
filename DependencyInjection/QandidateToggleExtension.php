@@ -53,7 +53,7 @@ class QandidateToggleExtension extends Extension
                 $container->setDefinition('qandidate.toggle.collection.factory', $definition);
 
                 break;
-            case 'symfony' === $config['persistence']:
+            case 'config' === $config['persistence']:
                 $collection = 'factory';
                 $definition = $container->getDefinition('qandidate.toggle.collection.in_memory');
                 $definition->setFactory(array(
