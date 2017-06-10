@@ -104,6 +104,32 @@ public function articleAction(Request $request)
 }
 ```
 
+## Annotation Usage
+
+You can also use the `@Toggle` annotation on a controller. When the toggle isn't active a 404 exception is thrown.
+
+```php
+use Qandidate\Bundle\ToggleBundle\Annotations\Toggle;
+
+/**
+ * @Toggle("cool-feature")
+ */
+class FooController
+{
+
+    /**
+     * @Toggle("another-cool-feature")
+     */
+    public function barAction()
+    {
+    }
+
+    public function bazAction()
+    {
+    }
+}
+```
+
 ## Twig usage
 
 If you use Twig you can also use the function:
