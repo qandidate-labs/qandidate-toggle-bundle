@@ -26,9 +26,15 @@ class ToggleListener
     public function onKernelController(FilterControllerEvent $event)
     {
         $controller = $event->getController();
-        $class      = ClassUtils::getClass($controller[0]);
-        $object     = new \ReflectionClass($class);
-        $method     = $object->getMethod($controller[1]);
+
+        if (is_array($controller)) {
+            $class      = ClassUtils::getClass($controller[0]);
+            $object     = new \ReflectionClass($class);
+            $method     = $object->getMethod($controller[1]);
+        } else {
+            $object     = new \ReflectionClass($controller);
+            $method     = $object->getMethod('__invoke');
+        }
 
         foreach ($this->reader->getClassAnnotations($object) as $annotation) {
             if ($annotation instanceof Toggle) {
