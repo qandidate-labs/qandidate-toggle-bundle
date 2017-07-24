@@ -38,6 +38,9 @@ qandidate_toggle:
     context_factory: null|your.context_factory.service.id
     redis_namespace: toggle_%kernel.environment% # default, only required when persistence = redis
     redis_client: null|your.redis_client.service.id # only required when persistence = redis
+    collection_factory: # only required when persistence = factory
+        service_id: your.collection_factory.service.id
+        method: create
 ```
 
 ## Sample Configuration for Symfony
