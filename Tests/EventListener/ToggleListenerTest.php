@@ -7,6 +7,7 @@ use Qandidate\Bundle\ToggleBundle\EventListener\ToggleListener;
 use Qandidate\Bundle\ToggleBundle\Tests\EventListener\Fixture\FooControllerToggleAtClassAndMethod;
 
 use Doctrine\Common\Annotations\AnnotationReader;
+use Qandidate\Bundle\ToggleBundle\Tests\EventListener\Fixture\FooControllerToggleAtInvoke;
 use Qandidate\Toggle\Context;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
@@ -56,6 +57,29 @@ class ToggleListenerTest extends \PHPUnit_Framework_TestCase
         $controller = new FooControllerToggleAtClassAndMethod();
 
         $this->event = $this->getFilterControllerEvent(array($controller, 'barAction'), $this->request);
+        $this->listener->onKernelController($this->event);
+        // If we end up here toggle is active, no exception thrown
+        $this->assertTrue(true);
+    }
+
+    /**
+     * @expectedException \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     */
+    public function testInactiveToggleAnnotationAtInvoke()
+    {
+        $this->listener = $this->createListener(false);
+        $controller = new FooControllerToggleAtInvoke();
+
+        $this->event = $this->getFilterControllerEvent($controller, $this->request);
+        $this->listener->onKernelController($this->event);
+    }
+
+    public function testActiveToggleAnnotationAtInvoke()
+    {
+        $this->listener = $this->createListener(true);
+        $controller = new FooControllerToggleAtInvoke();
+
+        $this->event = $this->getFilterControllerEvent($controller, $this->request);
         $this->listener->onKernelController($this->event);
         // If we end up here toggle is active, no exception thrown
         $this->assertTrue(true);
