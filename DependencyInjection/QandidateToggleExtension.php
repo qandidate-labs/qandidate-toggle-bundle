@@ -31,6 +31,11 @@ class QandidateToggleExtension extends Extension
 
         $processor = new Processor();
         $config    = $processor->processConfiguration(new Configuration(), $configs);
+
+        if (method_exists($container, 'resolveEnvPlaceholders')) {
+            $config = $container->resolveEnvPlaceholders($config);
+        }
+
         $collection = 'in_memory';
         switch (true) {
             case 'redis' === $config['persistence']:
