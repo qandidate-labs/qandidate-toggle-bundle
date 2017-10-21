@@ -11,7 +11,6 @@
 
 namespace Qandidate\Bundle\ToggleBundle\DependencyInjection;
 
-use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\DefinitionDecorator;
@@ -29,8 +28,7 @@ class QandidateToggleExtension extends Extension
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config/'));
         $loader->load('services.xml');
 
-        $processor = new Processor();
-        $config    = $processor->processConfiguration(new Configuration(), $configs);
+        $config = $this->processConfiguration(new Configuration(), $configs);
         $collection = 'in_memory';
         switch (true) {
             case 'redis' === $config['persistence']:
