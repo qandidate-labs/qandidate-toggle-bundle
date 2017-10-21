@@ -1,0 +1,20 @@
+{
+    "name": "qandidate/toggle-bundle-example",
+    "description": "MicroKernel Symfony application demonstrating the Qandidate Toggle Bundle",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "othillo",
+            "email": "othillo@othillo.nl"
+        },
+        {
+            "name": "Qandidate.com",
+            "homepage": "http://labs.qandidate.com"
+        }
+    ],
+    "require": {
+        "qandidate/toggle-bundle": "^0.7",
+        "symfony/symfony": "^3.2"
+    }
+}
