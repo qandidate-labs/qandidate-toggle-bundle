@@ -12,6 +12,7 @@
 namespace Qandidate\Bundle\ToggleBundle\DependencyInjection;
 
 use Symfony\Component\Config\FileLocator;
+use Symfony\Component\DependencyInjection\Alias;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\DefinitionDecorator;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
@@ -64,7 +65,7 @@ class QandidateToggleExtension extends Extension
                 break;
         }
 
-        $container->setAlias('qandidate.toggle.collection', 'qandidate.toggle.collection.' . $collection);
+        $container->setAlias('qandidate.toggle.collection', new Alias('qandidate.toggle.collection.' . $collection, true));
 
         $contextFactoryService = 'qandidate.toggle.user_context_factory';
         if (null !== $config['context_factory']) {
