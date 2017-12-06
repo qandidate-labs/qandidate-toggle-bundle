@@ -25,7 +25,7 @@
             <argument type="service" id="qandidate.toggle.collection" />
         </service>
 
-        <service id="qandidate.toggle.user_context_factory" class="%qandidate.toggle.user_context_factory.class%">
+        <service id="qandidate.toggle.user_context_factory" class="%qandidate.toggle.user_context_factory.class%" public="true">
             <argument type="service" id="security.token_storage" />
         </service>
 
