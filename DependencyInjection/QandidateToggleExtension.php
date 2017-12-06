@@ -14,7 +14,7 @@ namespace Qandidate\Bundle\ToggleBundle\DependencyInjection;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\Alias;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\DefinitionDecorator;
+use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
@@ -43,7 +43,7 @@ class QandidateToggleExtension extends Extension
                 break;
             case 'factory' === $config['persistence']:
                 $collection = 'factory';
-                $definition = new DefinitionDecorator('qandidate.toggle.collection.in_memory');
+                $definition = new Definition('qandidate.toggle.collection.in_memory');
                 $definition->setFactory(array(
                     new Reference($config['collection_factory']['service_id']),
                     $config['collection_factory']['method']
