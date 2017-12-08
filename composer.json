@@ -22,7 +22,7 @@
         "php": ">=7.0",
         "qandidate/toggle": "~1.0",
         "symfony/framework-bundle": "^2.7||^3.0||^4.0",
-        "symfony/security-core": "^2.7||^3.0||^4.0",
+        "symfony/security-bundle": "^2.7||^3.0||^4.0",
         "doctrine/common": "~2.2"
     },
     "require-dev": {
