@@ -22,7 +22,6 @@ matrix:
       env: SYMFONY_VERSION=''
 
 before_script:
-  - composer self-update
   - if [ "$SYMFONY_VERSION" != "" ]; then composer --no-update require symfony/symfony:${SYMFONY_VERSION}; fi;
   - travis_retry composer update $COMPOSER_FLAGS
 
