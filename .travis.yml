@@ -2,6 +2,7 @@ language: php
 sudo: false
 
 php:
+  - 7.0
   - 7.1
   - 7.2
 
@@ -14,8 +15,10 @@ env:
 
 matrix:
   include:
-    - php: 7.1
+    - php: 7.0
       env: 'COMPOSER_FLAGS="--prefer-stable --prefer-lowest"'
+    - php: 7.0
+      env: SYMFONY_VERSION=''
     - php: 7.1
       env: SYMFONY_VERSION=''
     - php: 7.2
