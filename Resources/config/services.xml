@@ -21,7 +21,7 @@
 
         <service id="qandidate.toggle.collection.serializer.in_memory" class="%qandidate.toggle.collection.serializer.in_memory.class%" />
 
-        <service id="qandidate.toggle.manager" class="%qandidate.toggle.manager.class%">
+        <service id="qandidate.toggle.manager" class="%qandidate.toggle.manager.class%" public="true">
             <argument type="service" id="qandidate.toggle.collection" />
         </service>
 
