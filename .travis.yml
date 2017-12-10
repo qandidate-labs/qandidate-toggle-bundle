@@ -25,7 +25,7 @@ matrix:
       env: SYMFONY_VERSION=''
   exclude:
     - php: 7.0
-      env: SYMFONY_VERSION='4.0.*'
+      env: SYMFONY_VERSION=4.0.*
 
 before_script:
   - if [ "$SYMFONY_VERSION" != "" ]; then composer --no-update require symfony/symfony:${SYMFONY_VERSION}; fi;
