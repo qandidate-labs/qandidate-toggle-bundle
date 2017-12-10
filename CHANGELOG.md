@@ -2,6 +2,10 @@
 
 # 1.0.x
 
+* [60eac73](http://github.com/qandidate-labs/qandidate-toggle-bundle/commit/60eac73e97ab6bbcefd5f48761f66a4bb3e40414) require symfony/security-bundle (#54) (othillo)
+* [091c564](http://github.com/qandidate-labs/qandidate-toggle-bundle/commit/091c5646874f434679ce9c05686482999fbd665d) support Symfony 4 (#53) (othillo)
+* [01461d7](http://github.com/qandidate-labs/qandidate-toggle-bundle/commit/01461d7efb89234b0cf8034a15c7ca2d99048498) example using MicroKernelTrait (othillo)
+
 # 0.8.x
 
 * [06b3b9e](http://github.com/qandidate-labs/qandidate-toggle-bundle/commit/06b3b9e122b2b977a37e4917512be05601ed7603) Add collection_factory config directive to README (krizon)
