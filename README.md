@@ -16,10 +16,32 @@ Read the our blog post series about this repository at:
 
 ## Installation
 
+### Using Symfony Flex
+
+The easiest way to install and configure the QandidateToggleBundle with Symfony is by using
+[Symfony Flex](https://github.com/symfony/flex).
+
+Make sure you have Symfony Flex installed:
+
+```
+$ composer require symfony/flex ^1.0
+$ composer config extra.symfony.allow-contrib true
+```
+
+Install the bundle:
+
+```
+$ composer require qandidate/toggle-bundle ^1.0
+```
+
+Symfony Flex will automatically register and configure the bundle.
+
+### Manually
+
 Add the bundle to your composer.json
 
 ```bash
-$ composer require qandidate/toggle-bundle ~0.1
+$ composer require qandidate/toggle-bundle ^1.0
 ```
 
 Add the bundle to your Kernel:
