@@ -22,14 +22,17 @@ Add the bundle to your composer.json
 $ composer require qandidate/toggle-bundle ~0.1
 ```
 
-Add the bundle to your Kernel
+Add the bundle to your Kernel:
 
 ```php
 $bundles = array(
     // ..
+    new Symfony\Bundle\SecurityBundle\SecurityBundle(),
+    new Symfony\Bundle\TwigBundle\TwigBundle(),
     new Qandidate\Bundle\ToggleBundle\QandidateToggleBundle(),
 );
 ```
+
 ## Configuration
 
 ```yaml
