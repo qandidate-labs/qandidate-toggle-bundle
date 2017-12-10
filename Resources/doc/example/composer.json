@@ -14,7 +14,7 @@
         }
     ],
     "require": {
-        "qandidate/toggle-bundle": "^0.7",
-        "symfony/symfony": "^3.2"
+        "qandidate/toggle-bundle": "^1.0@dev",
+        "symfony/symfony": "^4.0"
     }
 }
