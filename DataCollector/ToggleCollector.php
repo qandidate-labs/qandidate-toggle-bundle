@@ -11,9 +11,11 @@
 
 namespace Qandidate\Bundle\ToggleBundle\DataCollector;
 
-use Qandidate\Toggle\Condition;
 use Qandidate\Toggle\Context;
 use Qandidate\Toggle\ContextFactory;
+use Qandidate\Toggle\Serializer\OperatorConditionSerializer;
+use Qandidate\Toggle\Serializer\OperatorSerializer;
+use Qandidate\Toggle\Serializer\ToggleSerializer;
 use Qandidate\Toggle\Toggle;
 use Qandidate\Toggle\ToggleManager;
 use Symfony\Component\HttpFoundation\Request;
@@ -51,18 +53,10 @@ class ToggleCollector extends DataCollector
      */
     public function collect(Request $request, Response $response, \Exception $exception = null)
     {
-        $toggleData = array_map(function (Toggle $toggle) {
-            return array(
-                'name' => $toggle->getName(),
-                'conditions' => array_map(function (Condition $condition) {
-                    return array(
-                        'key' => $condition->getKey(),
-                        'operator' => get_class($condition->getOperator()),
-                        'value' => $condition->getOperator()->getValue(),
-                    );
-                }, $toggle->getConditions()),
-            );
+        $serializer = new ToggleSerializer(new OperatorConditionSerializer(new OperatorSerializer()));
 
+        $toggleData = array_map(function (Toggle $toggle) use ($serializer) {
+            return $serializer->serialize($toggle);
         }, $this->toggleManager->all());
 
         $this->data['toggleDetails'] = $toggleData;

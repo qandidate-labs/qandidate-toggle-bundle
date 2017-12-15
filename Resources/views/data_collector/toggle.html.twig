@@ -7,7 +7,7 @@
     {% endset %}
 
     {% set text %}
-        {% for toggle in collector.toggle %}
+        {% for toggle in collector.toggleDetails %}
             <div class="sf-toolbar-info-piece">
                 <b>{{ toggle.name }}</b>
                 {% if toggle.name is active feature %}
@@ -64,6 +64,7 @@
                 <th>Toggle name</th>
                 <th>Conditions</th>
                 <th>Status</th>
+                <th>Current Status</th>
             </tr>
             </thead>
             <tbody>
@@ -71,7 +72,12 @@
                 <tr>
                     <td>{{ toggleDetails.name }}</td>
                     <td>{{ block('toggle_detail_conditions') }}</td>
-                    <td>{{ toggleDetails.name is active feature ? 'active' : 'inactive' }}</td>
+                    <td>{{ toggleDetails.status }}</td>
+                    {% if toggleDetails.name is active feature %}
+                        <td><span class="label status-success">active</span></td>
+                    {% else %}
+                        <td><span class="label status-warning">inactive</span></td>
+                    {% endif %}
                 </tr>
             {% endfor %}
             </tbody>
@@ -85,7 +91,7 @@
 
 {% block toggle_detail_conditions %}
     {% for condition in toggleDetails.conditions %}
-        <b>{{ condition.key }}</b>: {{ condition.operator }} {{ condition.value }}
+        <b>{{ condition.name }}</b>: {{ condition.key }} {{ condition.operator.name }} {{ condition.operator.value }}
         {% if not loop.last %}<br />{% endif %}
     {% else %}
         No conditions
