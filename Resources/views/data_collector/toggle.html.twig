@@ -1,0 +1,99 @@
+{% extends '@WebProfiler/Profiler/layout.html.twig' %}
+
+{% block toolbar %}
+
+    {% set icon %}
+        <span class="sf-toolbar-value">Toggle</span>
+    {% endset %}
+
+    {% set text %}
+        {% for toggle in collector.toggleDetails %}
+            <div class="sf-toolbar-info-piece">
+                <b>{{ toggle.name }}</b>
+                {% if toggle.name is active feature %}
+                    <span class="sf-toolbar-status sf-toolbar-status-green">active</span>
+                {% else %}
+                    <span class="sf-toolbar-status sf-toolbar-status-yellow">inactive</span>
+                {% endif %}
+            </div>
+        {% endfor %}
+    {% endset %}
+
+    {{ include('@WebProfiler/Profiler/toolbar_item.html.twig') }}
+
+{% endblock %}
+
+{% block menu %}
+    <span class="label">
+        <strong>Toggle</strong>
+    </span>
+{% endblock %}
+
+{% block panel %}
+    <h2>Context</h2>
+
+    {% if collector.context.toArray|length %}
+        <table>
+            <thead>
+            <tr>
+                <th>Context</th>
+                <th>Value</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for contextName, contextValue in collector.context.toArray %}
+                <tr>
+                    <td>{{ contextName }}</td>
+                    <td>{{ contextValue }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <div class="empty">
+            <p>No context data found.</p>
+        </div>
+    {% endif %}
+
+    <h2>Toggles</h2>
+
+    {% if collector.toggleDetails|length %}
+        <table>
+            <thead>
+            <tr>
+                <th>Toggle name</th>
+                <th>Conditions</th>
+                <th>Status</th>
+                <th>Current Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for toggleDetails in collector.toggleDetails %}
+                <tr>
+                    <td>{{ toggleDetails.name }}</td>
+                    <td>{{ block('toggle_detail_conditions') }}</td>
+                    <td>{{ toggleDetails.status }}</td>
+                    {% if toggleDetails.name is active feature %}
+                        <td><span class="label status-success">active</span></td>
+                    {% else %}
+                        <td><span class="label status-warning">inactive</span></td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <div class="empty">
+            <p>No toggle definition found.</p>
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block toggle_detail_conditions %}
+    {% for condition in toggleDetails.conditions %}
+        <b>{{ condition.name }}</b>: {{ condition.key }} {{ condition.operator.name }} {{ condition.operator.value }}
+        {% if not loop.last %}<br />{% endif %}
+    {% else %}
+        No conditions
+    {% endfor %}
+{% endblock %}

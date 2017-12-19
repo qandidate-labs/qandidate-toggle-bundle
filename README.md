@@ -180,6 +180,15 @@ Or the Twig test:
 
 Both are registered in the [ToggleTwigExtension](Twig/ToggleTwigExtension.php).
 
+## Data collector
+
+With the data collector you have a overview about all toggles. In the toolbar you see all conditions and the current status. 
+
+In the panel you have two lists:
+
+* You can see all keys and there current values.
+* Then you can see all configured toggles, there conditions and if they are active.
+
 ## Testing
 
 To run PHPUnit tests:
