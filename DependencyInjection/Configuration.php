@@ -75,7 +75,7 @@ class Configuration implements ConfigurationInterface
             ->end()
             ->validate()
                 ->ifTrue(function ($v) {
-                    if ($v['persistence'] === 'factory') {
+                    if (isset($v['persistence']) && $v['persistence'] === 'factory') {
                         return ! isset($v['collection_factory']['service_id'], $v['collection_factory']['method']);
                     }
 
