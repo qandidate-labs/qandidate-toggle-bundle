@@ -32,7 +32,8 @@
         "twig/twig": "~1.16,>=1.16.2",
         "symfony/twig-bundle": "^2.7||^3.0||^4.0",
         "phpunit/phpunit": "^5.0 || ^4.8.35",
-        "matthiasnoback/symfony-dependency-injection-test": "^1.1"
+        "matthiasnoback/symfony-dependency-injection-test": "^1.2",
+        "matthiasnoback/symfony-config-test": "^2.2"
     },
     "suggest": {
         "twig/twig": "For using the twig helper"
