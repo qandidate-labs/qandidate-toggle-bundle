@@ -105,6 +105,7 @@ class QandidateToggleExtensionTest extends AbstractExtensionTestCase
 
         $definition = $this->container->getDefinition('qandidate.toggle.collection.factory');
         $factory = $definition->getFactory();
+        $this->assertSame(InMemoryCollection::class, $definition->getClass());
         $this->assertArrayHasKey(0, $factory);
         $this->assertArrayHasKey(1, $factory);
         $this->assertInstanceOf('Symfony\Component\DependencyInjection\Reference', $factory[0]);
