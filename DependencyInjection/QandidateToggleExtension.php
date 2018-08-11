@@ -11,6 +11,7 @@
 
 namespace Qandidate\Bundle\ToggleBundle\DependencyInjection;
 
+use Qandidate\Toggle\ToggleCollection\InMemoryCollection;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\Alias;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -43,7 +44,7 @@ class QandidateToggleExtension extends Extension
                 break;
             case 'factory' === $config['persistence']:
                 $collection = 'factory';
-                $definition = new Definition('qandidate.toggle.collection.in_memory');
+                $definition = new Definition(InMemoryCollection::class);
                 $definition->setFactory(array(
                     new Reference($config['collection_factory']['service_id']),
                     $config['collection_factory']['method']
