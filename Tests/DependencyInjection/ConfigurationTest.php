@@ -137,6 +137,55 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
                                 'operator' => [
                                     'name' => 'greater-than',
                                     'value' => 42,
+                                    'values' => [],
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+            'toggles'
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function it_configures_toggles_with_inset_operator()
+    {
+        $this->assertProcessedConfigurationEquals(
+            [
+                [
+                    'toggles' => [
+                        'conditionally-active' => [
+                            'name' => 'conditionally-active',
+                            'status' => 'conditionally-active',
+                            'conditions' => [
+                                [
+                                    'name' => 'operator-condition',
+                                    'key'  => 'user_id',
+                                    'operator' => [
+                                       'name' => 'greater-than',
+                                       'values' => [41, 42],
+                                    ],
+                                ],
+                            ],
+                         ],
+                    ],
+                ],
+            ],
+            [
+                'toggles' => [
+                    'conditionally_active' => [
+                        'name' => 'conditionally-active',
+                        'status' => 'conditionally-active',
+                        'conditions' => [
+                            [
+                                'name' => 'operator-condition',
+                                'key'  => 'user_id',
+                                'operator' => [
+                                    'name' => 'greater-than',
+                                    'values' => [41, 42],
                                 ],
                             ],
                         ],
