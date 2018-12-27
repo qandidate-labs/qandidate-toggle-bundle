@@ -21,9 +21,9 @@ class Configuration implements ConfigurationInterface
      */
     public function getConfigTreeBuilder()
     {
-        $treeBuilder = new TreeBuilder();
+        $treeBuilder = new TreeBuilder('qandidate_toggle');
 
-        $rootNode = $treeBuilder->root('qandidate_toggle');
+        $rootNode = \method_exists($treeBuilder, 'getRootNode') ? $treeBuilder->getRootNode() : $treeBuilder->root('qandidate_toggle');
 
         $rootNode
             ->children()
