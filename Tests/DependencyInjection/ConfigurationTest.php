@@ -137,7 +137,6 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
                                 'operator' => [
                                     'name' => 'greater-than',
                                     'value' => 42,
-                                    'values' => [],
                                 ],
                             ],
                         ],
