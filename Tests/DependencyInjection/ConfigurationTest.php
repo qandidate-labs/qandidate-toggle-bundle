@@ -150,6 +150,54 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    public function it_configures_toggles_with_inset_operator()
+    {
+        $this->assertProcessedConfigurationEquals(
+            [
+                [
+                    'toggles' => [
+                        'conditionally-active' => [
+                            'name' => 'conditionally-active',
+                            'status' => 'conditionally-active',
+                            'conditions' => [
+                                [
+                                    'name' => 'operator-condition',
+                                    'key'  => 'user_id',
+                                    'operator' => [
+                                       'name' => 'greater-than',
+                                       'values' => [41, 42],
+                                    ],
+                                ],
+                            ],
+                         ],
+                    ],
+                ],
+            ],
+            [
+                'toggles' => [
+                    'conditionally_active' => [
+                        'name' => 'conditionally-active',
+                        'status' => 'conditionally-active',
+                        'conditions' => [
+                            [
+                                'name' => 'operator-condition',
+                                'key'  => 'user_id',
+                                'operator' => [
+                                    'name' => 'greater-than',
+                                    'values' => [41, 42],
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+            'toggles'
+        );
+    }
+
+    /**
+     * @test
+     */
     public function it_requires_collection_factory_to_be_set_when_persistence_is_factory()
     {
         $this->expectException(InvalidConfigurationException::class);
