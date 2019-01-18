@@ -91,7 +91,16 @@
 
 {% block toggle_detail_conditions %}
     {% for condition in toggleDetails.conditions %}
-        <b>{{ condition.name }}</b>: {{ condition.key }} {{ condition.operator.name }} {{ condition.operator.value }}
+        {% set values = '' %}
+        {% if condition.operator.value is defined %}
+            {% set values = condition.operator.value %}
+        {% endif %}
+
+        {% if condition.operator.values is defined %}
+            {% set values = condition.operator.values|join(', ') %}
+        {% endif %}
+
+        <b>{{ condition.name }}</b>: {{ condition.key }} {{ condition.operator.name }} {{ values }}
         {% if not loop.last %}<br />{% endif %}
     {% else %}
         No conditions
