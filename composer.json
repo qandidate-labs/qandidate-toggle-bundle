@@ -22,7 +22,7 @@
         ]
     },
     "require": {
-        "php": ">=7.0",
+        "php": ">=7.2",
         "qandidate/toggle": "~1.0",
         "symfony/framework-bundle": "^3.4||^4.4||^5.0",
         "symfony/http-foundation": "^3.4||^4.4||^5.0",
