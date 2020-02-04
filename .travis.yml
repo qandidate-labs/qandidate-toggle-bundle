@@ -23,6 +23,7 @@ matrix:
       env: SYMFONY_VERSION=''
 
 before_script:
+  - echo "memory_limit=2G" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
   - if [ "$SYMFONY_VERSION" != "" ]; then composer --no-update require symfony/symfony:${SYMFONY_VERSION}; fi;
   - travis_retry composer update $COMPOSER_FLAGS
 
