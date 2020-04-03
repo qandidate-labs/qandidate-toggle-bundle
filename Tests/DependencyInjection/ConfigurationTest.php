@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the qandidate-labs/qandidate-toggle-bundle package.
  *
@@ -38,11 +40,11 @@ class ConfigurationTest extends TestCase
                 [],
             ],
             [
-                'persistence'     => 'in_memory',
+                'persistence' => 'in_memory',
                 'context_factory' => null,
                 'redis_namespace' => 'toggle_%kernel.environment%',
-                'redis_client'    => null,
-                'toggles'         => [],
+                'redis_client' => null,
+                'toggles' => [],
             ]
         );
     }
@@ -73,26 +75,26 @@ class ConfigurationTest extends TestCase
                 [
                     'toggles' => [
                         'always-active-feature' => [
-                            'name'   => 'always-active-feature',
+                            'name' => 'always-active-feature',
                             'status' => 'always-active',
                         ],
                         'inactive-feature' => [
-                            'name'   => 'inactive-feature',
+                            'name' => 'inactive-feature',
                             'status' => 'inactive',
                         ],
-                    ]
+                    ],
                 ],
             ],
             [
                 'toggles' => [
                     'always_active_feature' => [
-                        'name'       => 'always-active-feature',
-                        'status'     => 'always-active',
+                        'name' => 'always-active-feature',
+                        'status' => 'always-active',
                         'conditions' => [],
                     ],
                     'inactive_feature' => [
-                        'name'       => 'inactive-feature',
-                        'status'     => 'inactive',
+                        'name' => 'inactive-feature',
+                        'status' => 'inactive',
                         'conditions' => [],
                     ],
                 ],
@@ -116,7 +118,7 @@ class ConfigurationTest extends TestCase
                             'conditions' => [
                                 [
                                     'name' => 'operator-condition',
-                                    'key'  => 'user_id',
+                                    'key' => 'user_id',
                                     'operator' => [
                                        'name' => 'greater-than',
                                        'value' => 42,
@@ -135,7 +137,7 @@ class ConfigurationTest extends TestCase
                         'conditions' => [
                             [
                                 'name' => 'operator-condition',
-                                'key'  => 'user_id',
+                                'key' => 'user_id',
                                 'operator' => [
                                     'name' => 'greater-than',
                                     'value' => 42,
@@ -164,7 +166,7 @@ class ConfigurationTest extends TestCase
                             'conditions' => [
                                 [
                                     'name' => 'operator-condition',
-                                    'key'  => 'user_id',
+                                    'key' => 'user_id',
                                     'operator' => [
                                        'name' => 'greater-than',
                                        'values' => [41, 42],
@@ -183,7 +185,7 @@ class ConfigurationTest extends TestCase
                         'conditions' => [
                             [
                                 'name' => 'operator-condition',
-                                'key'  => 'user_id',
+                                'key' => 'user_id',
                                 'operator' => [
                                     'name' => 'greater-than',
                                     'values' => [41, 42],

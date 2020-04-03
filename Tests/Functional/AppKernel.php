@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the qandidate-labs/qandidate-toggle-bundle package.
  *
@@ -9,22 +11,22 @@
  * file that was distributed with this source code.
  */
 
-use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Config\Loader\LoaderInterface;
+use Symfony\Component\HttpKernel\Kernel;
 
 class AppKernel extends Kernel
 {
     public function registerBundles()
     {
-        return array(
+        return [
             new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
             new Qandidate\Bundle\ToggleBundle\QandidateToggleBundle(),
-        );
+        ];
     }
 
     public function registerContainerConfiguration(LoaderInterface $loader)
     {
-        $loader->load(__DIR__ . '/Resources/config/test.yml');
-        $loader->load(__DIR__ . '/Resources/config/test_services.xml');
+        $loader->load(__DIR__.'/Resources/config/test.yml');
+        $loader->load(__DIR__.'/Resources/config/test_services.xml');
     }
 }

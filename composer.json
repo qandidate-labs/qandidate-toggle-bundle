@@ -36,7 +36,8 @@
         "symfony/twig-bundle": "^3.4||^4.4||^5.0",
         "phpunit/phpunit": "^8.0",
         "matthiasnoback/symfony-dependency-injection-test": "^4.0",
-        "matthiasnoback/symfony-config-test": "^4.0"
+        "matthiasnoback/symfony-config-test": "^4.0",
+        "broadway/coding-standard": "^1.0"
     },
     "suggest": {
         "twig/twig": "For using the twig helper"

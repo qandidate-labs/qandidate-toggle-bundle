@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the qandidate-labs/qandidate-toggle-bundle package.
  *
@@ -35,8 +37,6 @@ class ToggleCollector extends DataCollector
 
     /**
      * ToggleCollector constructor.
-     * @param ToggleManager $toggleManager
-     * @param ContextFactory $contextFactory
      */
     public function __construct(ToggleManager $toggleManager, ContextFactory $contextFactory)
     {
@@ -47,8 +47,8 @@ class ToggleCollector extends DataCollector
     /**
      * Collects data for the given Request and Response.
      *
-     * @param Request $request A Request instance
-     * @param Response $response A Response instance
+     * @param Request    $request   A Request instance
+     * @param Response   $response  A Response instance
      * @param \Exception $exception An Exception instance
      */
     public function collect(Request $request, Response $response, \Exception $exception = null)
@@ -91,6 +91,6 @@ class ToggleCollector extends DataCollector
 
     public function reset()
     {
-        $this->data = array();
+        $this->data = [];
     }
 }

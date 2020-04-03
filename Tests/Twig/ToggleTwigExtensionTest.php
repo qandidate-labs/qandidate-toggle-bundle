@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the qandidate-labs/qandidate-toggle-bundle package.
  *
@@ -15,8 +17,8 @@ use PHPUnit\Framework\TestCase;
 use Qandidate\Bundle\ToggleBundle\Twig\ToggleTwigExtension;
 use Qandidate\Toggle\Context;
 use Qandidate\Toggle\Toggle;
-use Qandidate\Toggle\ToggleManager;
 use Qandidate\Toggle\ToggleCollection\InMemoryCollection;
+use Qandidate\Toggle\ToggleManager;
 
 class ToggleTwigExtensionTest extends TestCase
 {
@@ -26,10 +28,10 @@ class ToggleTwigExtensionTest extends TestCase
 
     public function setUp(): void
     {
-        $this->toggleManager  = new ToggleManager(new InMemoryCollection());
+        $this->toggleManager = new ToggleManager(new InMemoryCollection());
         $this->contextFactory = $this->getMockBuilder('Qandidate\Toggle\ContextFactory')
             ->disableOriginalConstructor()
-            ->setMethods(array('createContext'))
+            ->setMethods(['createContext'])
             ->getMock();
 
         $this->extension = new ToggleTwigExtension($this->toggleManager, $this->contextFactory);
@@ -69,7 +71,7 @@ class ToggleTwigExtensionTest extends TestCase
         return new Context();
     }
 
-    private function createToggle($name, $status, array $conditions = array())
+    private function createToggle($name, $status, array $conditions = [])
     {
         $toggle = new Toggle($name, $conditions);
         $toggle->activate($status);

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the qandidate-labs/qandidate-toggle-bundle package.
  *
@@ -23,7 +25,7 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 class QandidateToggleExtension extends Extension
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function load(array $configs, ContainerBuilder $container)
     {
@@ -45,10 +47,10 @@ class QandidateToggleExtension extends Extension
             case 'factory' === $config['persistence']:
                 $collection = 'factory';
                 $definition = new Definition(InMemoryCollection::class);
-                $definition->setFactory(array(
+                $definition->setFactory([
                     new Reference($config['collection_factory']['service_id']),
-                    $config['collection_factory']['method']
-                ));
+                    $config['collection_factory']['method'],
+                ]);
 
                 $container->setDefinition('qandidate.toggle.collection.factory', $definition);
 
@@ -56,17 +58,17 @@ class QandidateToggleExtension extends Extension
             case 'config' === $config['persistence']:
                 $collection = 'factory';
                 $definition = $container->getDefinition('qandidate.toggle.collection.in_memory');
-                $definition->setFactory(array(
+                $definition->setFactory([
                     new Reference('qandidate.toggle.collection.serializer.in_memory'),
-                    'deserialize'
-                ));
+                    'deserialize',
+                ]);
                 $definition->addArgument($config['toggles']);
 
                 $container->setDefinition('qandidate.toggle.collection.factory', $definition);
                 break;
         }
 
-        $container->setAlias('qandidate.toggle.collection', new Alias('qandidate.toggle.collection.' . $collection, true));
+        $container->setAlias('qandidate.toggle.collection', new Alias('qandidate.toggle.collection.'.$collection, true));
 
         $contextFactoryService = 'qandidate.toggle.user_context_factory';
         if (null !== $config['context_factory']) {

@@ -1,11 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Qandidate\Bundle\ToggleBundle\Tests;
 
 use Qandidate\Bundle\ToggleBundle\Twig\ToggleTwigExtension;
 use Qandidate\Toggle\Context;
 use Qandidate\Toggle\ContextFactory;
-use Qandidate\Toggle\OperatorCondition;
 use Qandidate\Toggle\Toggle;
 use Qandidate\Toggle\ToggleCollection\InMemoryCollection;
 use Qandidate\Toggle\ToggleManager;
@@ -23,24 +24,24 @@ class TwigIntegrationTest extends Twig_Test_IntegrationTestCase
         $toggleCollection->set('bar', $this->createToggle('foo', false));
 
         $this->contextFactory = new StubContextFactory();
-        $this->toggleManager  = new ToggleManager($toggleCollection);
+        $this->toggleManager = new ToggleManager($toggleCollection);
     }
 
     public function getExtensions()
     {
-        return array(
+        return [
             new ToggleTwigExtension($this->toggleManager, $this->contextFactory),
-        );
+        ];
     }
 
     public function getFixturesDir()
     {
-        return __DIR__ . '/Fixtures/';
+        return __DIR__.'/Fixtures/';
     }
 
     private function createToggle($name, $active)
     {
-        $toggle = new Toggle($name, array());
+        $toggle = new Toggle($name, []);
 
         if ($active) {
             $toggle->activate(Toggle::ALWAYS_ACTIVE);
