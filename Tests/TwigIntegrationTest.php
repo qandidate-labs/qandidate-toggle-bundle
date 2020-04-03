@@ -1,6 +1,6 @@
 <?php
 
-namespace Qandidate\Bundle\ToggleBundle;
+namespace Qandidate\Bundle\ToggleBundle\Tests;
 
 use Qandidate\Bundle\ToggleBundle\Twig\ToggleTwigExtension;
 use Qandidate\Toggle\Context;
@@ -16,7 +16,7 @@ class TwigIntegrationTest extends Twig_Test_IntegrationTestCase
     private $contextFactory;
     private $toggleManager;
 
-    public function setUp()
+    public function setUp(): void
     {
         $toggleCollection = new InMemoryCollection();
         $toggleCollection->set('foo', $this->createToggle('foo', true));

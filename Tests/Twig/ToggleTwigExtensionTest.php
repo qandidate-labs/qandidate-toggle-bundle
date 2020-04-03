@@ -9,21 +9,22 @@
  * file that was distributed with this source code.
  */
 
-namespace Qandidate\Bundle\ToggleBundle\Twig;
+namespace Qandidate\Bundle\ToggleBundle\Tests\Twig;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
+use Qandidate\Bundle\ToggleBundle\Twig\ToggleTwigExtension;
 use Qandidate\Toggle\Context;
 use Qandidate\Toggle\Toggle;
 use Qandidate\Toggle\ToggleManager;
 use Qandidate\Toggle\ToggleCollection\InMemoryCollection;
 
-class ToggleTwigExtensionTest extends PHPUnit_Framework_TestCase
+class ToggleTwigExtensionTest extends TestCase
 {
     private $contextFactory;
     private $extension;
     private $toggleManager;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->toggleManager  = new ToggleManager(new InMemoryCollection());
         $this->contextFactory = $this->getMockBuilder('Qandidate\Toggle\ContextFactory')

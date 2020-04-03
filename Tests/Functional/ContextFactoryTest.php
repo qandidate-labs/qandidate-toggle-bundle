@@ -15,7 +15,7 @@ use Symfony\Component\Security\Core\Authentication\Token\AnonymousToken;
 
 class ContextFactoryTest extends WebTestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -25,6 +25,7 @@ class ContextFactoryTest extends WebTestCase
 
     /**
      * @test
+     * @doesNotPerformAssertions
      */
     public function it_has_the_factory_service()
     {

@@ -9,15 +9,16 @@
  * file that was distributed with this source code.
  */
 
-namespace Qandidate\Bundle\ToggleBundle\Context;
+namespace Qandidate\Bundle\ToggleBundle\Tests\Context;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
+use Qandidate\Bundle\ToggleBundle\Context\UserContextFactory;
 use Qandidate\Bundle\ToggleBundle\Tests\TokenStorage;
 use Symfony\Component\Security\Core\Authentication\Token\AnonymousToken;
 
-class UserContextFactoryTest extends PHPUnit_Framework_TestCase
+class UserContextFactoryTest extends TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         $this->tokenStorage = new TokenStorage();
         $this->contextFactory  = new UserContextFactory($this->tokenStorage);

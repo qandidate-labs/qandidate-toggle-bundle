@@ -9,10 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Qandidate\Bundle\ToggleBundle\DependencyInjection;
+namespace Qandidate\Bundle\ToggleBundle\Tests\DependencyInjection;
 
 use Doctrine\Common\Annotations\AnnotationReader;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
+use Qandidate\Bundle\ToggleBundle\DependencyInjection\QandidateToggleExtension;
 use Qandidate\Bundle\ToggleBundle\Tests\TokenStorage;
 use Qandidate\Toggle\Toggle;
 use Qandidate\Toggle\ToggleCollection\InMemoryCollection;
@@ -24,7 +25,7 @@ class QandidateToggleExtensionTest extends AbstractExtensionTestCase
     /**
      * {@inheritdoc}
      */
-    protected function getContainerExtensions()
+    protected function getContainerExtensions(): array
     {
         return [
             new QandidateToggleExtension(),
@@ -33,6 +34,7 @@ class QandidateToggleExtensionTest extends AbstractExtensionTestCase
 
     /**
      * @test
+     * @doesNotPerformAssertions
      */
     public function it_builds_the_container_with_empty_config()
     {
@@ -173,8 +175,8 @@ class QandidateToggleExtensionTest extends AbstractExtensionTestCase
             ],
         ]);
 
-        $this->registerService('security.token_storage', new TokenStorage());
-        $this->registerService('annotation_reader', new AnnotationReader());
+        $this->registerService('security.token_storage', TokenStorage::class);
+        $this->registerService('annotation_reader', AnnotationReader::class);
 
         $this->compile();
         $toggleCollection = $this->container->get('qandidate.toggle.collection');
