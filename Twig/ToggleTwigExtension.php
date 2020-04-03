@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the qandidate-labs/qandidate-toggle-bundle package.
  *
@@ -24,14 +26,14 @@ class ToggleTwigExtension extends Twig_Extension
 
     public function __construct(ToggleManager $toggleManager, ContextFactory $contextFactory)
     {
-        $this->toggleManager  = $toggleManager;
+        $this->toggleManager = $toggleManager;
         $this->contextFactory = $contextFactory;
     }
 
     /**
      * @param string $name
      *
-     * @return boolean
+     * @return bool
      */
     public function is_active($name)
     {
@@ -39,27 +41,27 @@ class ToggleTwigExtension extends Twig_Extension
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getFunctions()
     {
-        return array(
-            new Twig_SimpleFunction('feature_is_active', array($this, 'is_active')),
-        );
+        return [
+            new Twig_SimpleFunction('feature_is_active', [$this, 'is_active']),
+        ];
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getTests()
     {
-        return array(
-            new Twig_SimpleTest('active feature', array($this, 'is_active')),
-        );
+        return [
+            new Twig_SimpleTest('active feature', [$this, 'is_active']),
+        ];
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getName()
     {

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -8,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Routing\RouteCollectionBuilder;
 
-require __DIR__ . '/vendor/autoload.php';
+require __DIR__.'/vendor/autoload.php';
 
 class AppKernel extends Kernel
 {
@@ -34,7 +36,6 @@ class AppKernel extends Kernel
             'providers' => [
                 'my_custom_provider' => [
                     'memory' => [],
-
                 ],
             ],
             'firewalls' => [
@@ -48,7 +49,7 @@ class AppKernel extends Kernel
             'persistence' => 'config',
             'toggles' => [
                 'always-active-feature' => [
-                    'name'   => 'always-active-feature',
+                    'name' => 'always-active-feature',
                     'status' => 'always-active',
                 ],
                 'inactive-feature' => [
@@ -56,20 +57,20 @@ class AppKernel extends Kernel
                     'status' => 'inactive',
                 ],
                 'conditionally-active' => [
-                    'name'   => 'conditionally-active',
+                    'name' => 'conditionally-active',
                     'status' => 'conditionally-active',
                     'conditions' => [
                         [
                             'name' => 'operator-condition',
-                            'key'  => 'user_id',
+                            'key' => 'user_id',
                             'operator' => [
-                                'name'  => 'greater-than',
+                                'name' => 'greater-than',
                                 'value' => 42,
-                            ]
-                        ]
+                            ],
+                        ],
                     ],
-                ]
-            ]
+                ],
+            ],
         ]);
     }
 
@@ -81,12 +82,12 @@ class AppKernel extends Kernel
     public function indexAction()
     {
         $toggleManager = $this->getContainer()->get('qandidate.toggle.manager');
-        $context       = new \Qandidate\Toggle\Context();
+        $context = new \Qandidate\Toggle\Context();
         $context->set('user_id', 43);
 
-        $output = array_map(function(\Qandidate\Toggle\Toggle $toggle) use ($toggleManager, $context) {
+        $output = array_map(function (\Qandidate\Toggle\Toggle $toggle) use ($toggleManager, $context) {
             return [
-                'name'   => $toggle->getName(),
+                'name' => $toggle->getName(),
                 'active' => $toggleManager->active($toggle->getName(), $context),
             ];
         }, $toggleManager->all());

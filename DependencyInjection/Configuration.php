@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the qandidate-labs/qandidate-toggle-bundle package.
  *
@@ -17,7 +19,7 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
 class Configuration implements ConfigurationInterface
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getConfigTreeBuilder()
     {
@@ -28,7 +30,7 @@ class Configuration implements ConfigurationInterface
         $rootNode
             ->children()
                 ->enumNode('persistence')
-                    ->values(array('in_memory', 'redis', 'factory', 'config'))
+                    ->values(['in_memory', 'redis', 'factory', 'config'])
                     ->defaultValue('in_memory')
                 ->end()
                 ->arrayNode('collection_factory')
@@ -75,8 +77,8 @@ class Configuration implements ConfigurationInterface
             ->end()
             ->validate()
                 ->ifTrue(function ($v) {
-                    if (isset($v['persistence']) && $v['persistence'] === 'factory') {
-                        return ! isset($v['collection_factory']['service_id'], $v['collection_factory']['method']);
+                    if (isset($v['persistence']) && 'factory' === $v['persistence']) {
+                        return !isset($v['collection_factory']['service_id'], $v['collection_factory']['method']);
                     }
 
                     return false;

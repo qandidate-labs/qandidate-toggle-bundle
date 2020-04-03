@@ -1,18 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Qandidate\Bundle\ToggleBundle\Tests\EventListener;
 
+use Doctrine\Common\Annotations\AnnotationReader;
 use PHPUnit\Framework\TestCase;
 use Qandidate\Bundle\ToggleBundle\Annotations\Toggle;
 use Qandidate\Bundle\ToggleBundle\EventListener\ToggleListener;
 use Qandidate\Bundle\ToggleBundle\Tests\EventListener\Fixture\FooControllerToggleAtClassAndMethod;
-
-use Doctrine\Common\Annotations\AnnotationReader;
 use Qandidate\Bundle\ToggleBundle\Tests\EventListener\Fixture\FooControllerToggleAtInvoke;
 use Qandidate\Toggle\Context;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 
 class ToggleListenerTest extends TestCase
@@ -34,7 +34,7 @@ class ToggleListenerTest extends TestCase
         $this->listener = $this->createListener(false);
         $controller = new FooControllerToggleAtClassAndMethod();
 
-        $this->event = $this->getFilterControllerEvent(array($controller, 'barAction'), $this->request);
+        $this->event = $this->getFilterControllerEvent([$controller, 'barAction'], $this->request);
         $this->listener->onKernelController($this->event);
     }
 
@@ -44,7 +44,7 @@ class ToggleListenerTest extends TestCase
         $this->listener = $this->createListener(false);
         $controller = new FooControllerToggleAtClassAndMethod();
 
-        $this->event = $this->getFilterControllerEvent(array($controller, 'bazAction'), $this->request);
+        $this->event = $this->getFilterControllerEvent([$controller, 'bazAction'], $this->request);
         $this->listener->onKernelController($this->event);
     }
 
@@ -53,7 +53,7 @@ class ToggleListenerTest extends TestCase
         $this->listener = $this->createListener(true);
         $controller = new FooControllerToggleAtClassAndMethod();
 
-        $this->event = $this->getFilterControllerEvent(array($controller, 'barAction'), $this->request);
+        $this->event = $this->getFilterControllerEvent([$controller, 'barAction'], $this->request);
         $this->listener->onKernelController($this->event);
         // If we end up here toggle is active, no exception thrown
         $this->assertTrue(true);
@@ -99,14 +99,13 @@ class ToggleListenerTest extends TestCase
 
     protected function createRequest()
     {
-        return new Request(array(), array(), array());
+        return new Request([], [], []);
     }
 
     protected function getFilterControllerEvent($controller, Request $request)
     {
-        $mockKernel = $this->getMockForAbstractClass('Symfony\Component\HttpKernel\Kernel', array('', ''));
+        $mockKernel = $this->getMockForAbstractClass('Symfony\Component\HttpKernel\Kernel', ['', '']);
 
         return new FilterControllerEvent($mockKernel, $controller, $request, HttpKernelInterface::MASTER_REQUEST);
     }
 }
-

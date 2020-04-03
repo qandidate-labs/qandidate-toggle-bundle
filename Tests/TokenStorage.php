@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the qandidate-labs/qandidate-toggle-bundle package.
  *
@@ -19,7 +21,7 @@ class TokenStorage implements TokenStorageInterface
     private $token;
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getToken()
     {
@@ -27,7 +29,7 @@ class TokenStorage implements TokenStorageInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function setToken(TokenInterface $token = null)
     {
@@ -35,7 +37,7 @@ class TokenStorage implements TokenStorageInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function isGranted($attributes, $object = null)
     {

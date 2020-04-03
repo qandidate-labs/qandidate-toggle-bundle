@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the qandidate-labs/qandidate-toggle-bundle package.
  *
@@ -21,7 +23,7 @@ class UserContextFactoryTest extends TestCase
     public function setUp(): void
     {
         $this->tokenStorage = new TokenStorage();
-        $this->contextFactory  = new UserContextFactory($this->tokenStorage);
+        $this->contextFactory = new UserContextFactory($this->tokenStorage);
     }
 
     /**

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the qandidate-labs/qandidate-toggle-bundle package.
  *
@@ -11,6 +13,6 @@
 
 use Doctrine\Common\Annotations\AnnotationRegistry;
 
-$loader = require __DIR__ . '/../vendor/autoload.php';
+$loader = require __DIR__.'/../vendor/autoload.php';
 
-AnnotationRegistry::registerLoader(array($loader, 'loadClass'));
+AnnotationRegistry::registerLoader([$loader, 'loadClass']);

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the qandidate-labs/qandidate-toggle-bundle package.
  *
@@ -44,6 +46,6 @@ class ContextFactoryTest extends WebTestCase
 
     private function createSecurityToken()
     {
-        return new AnonymousToken('userKey', 'fooUser', array('ROLE_USER'));
+        return new AnonymousToken('userKey', 'fooUser', ['ROLE_USER']);
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the qandidate-labs/qandidate-toggle-bundle package.
  *
@@ -56,9 +58,9 @@ class QandidateToggleExtensionTest extends AbstractExtensionTestCase
     public function it_aliases_the_redis_collection_when_configured()
     {
         $this->load([
-            'persistence'     => 'redis',
+            'persistence' => 'redis',
             'redis_namespace' => 'toggle',
-            'redis_client'    => 'redis_client',
+            'redis_client' => 'redis_client',
         ]);
 
         $this->assertContainerBuilderHasAlias('qandidate.toggle.collection', 'qandidate.toggle.collection.predis');
@@ -72,9 +74,9 @@ class QandidateToggleExtensionTest extends AbstractExtensionTestCase
     public function it_loads_the_redis_service_file_when_configuring_the_redis_collection()
     {
         $this->load([
-            'persistence'     => 'redis',
+            'persistence' => 'redis',
             'redis_namespace' => 'toggle',
-            'redis_client'    => 'redis_client',
+            'redis_client' => 'redis_client',
         ]);
 
         $this->assertContainerBuilderHasService('qandidate.toggle.collection.predis', PredisCollection::class);
@@ -86,9 +88,8 @@ class QandidateToggleExtensionTest extends AbstractExtensionTestCase
     public function it_sets_the_default_redis_namespace()
     {
         $this->load([
-            'persistence'  => 'redis',
+            'persistence' => 'redis',
             'redis_client' => 'redis_client',
-
         ]);
 
         $this->assertContainerBuilderHasParameter('qandidate.toggle.redis.namespace', 'toggle_%kernel.environment%');
@@ -102,8 +103,8 @@ class QandidateToggleExtensionTest extends AbstractExtensionTestCase
         $this->load([
             'persistence' => 'factory',
             'collection_factory' => [
-                'service_id'    => 'factory.service.id',
-                'method'        => 'create',
+                'service_id' => 'factory.service.id',
+                'method' => 'create',
             ],
         ]);
 
@@ -169,7 +170,7 @@ class QandidateToggleExtensionTest extends AbstractExtensionTestCase
             'persistence' => 'config',
             'toggles' => [
                 'some_feature' => [
-                    'name'   => 'some_feature',
+                    'name' => 'some_feature',
                     'status' => 'conditionally-active',
                 ],
             ],

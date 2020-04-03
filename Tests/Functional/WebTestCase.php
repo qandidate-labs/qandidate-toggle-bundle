@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the qandidate-labs/qandidate-toggle-bundle package.
  *
@@ -17,7 +19,8 @@ class WebTestCase extends BaseWebTestCase
 {
     protected static function getKernelClass()
     {
-        require __DIR__ . '/AppKernel.php';
+        require __DIR__.'/AppKernel.php';
+
         return 'AppKernel';
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the qandidate-labs/qandidate-toggle-bundle package.
  *
@@ -15,5 +17,4 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 class QandidateToggleBundle extends Bundle
 {
-
 }

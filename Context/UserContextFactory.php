@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the qandidate-labs/qandidate-toggle-bundle package.
  *
@@ -23,7 +25,7 @@ class UserContextFactory extends ContextFactory
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function createContext()
     {
