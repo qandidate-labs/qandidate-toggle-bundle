@@ -32,7 +32,7 @@
     },
     "require-dev": {
         "symfony/browser-kit": "^3.4||^4.4||^5.0",
-        "twig/twig": "~1.16,>=1.16.2",
+        "twig/twig": "^2.12.5",
         "symfony/twig-bundle": "^3.4||^4.4||^5.0",
         "phpunit/phpunit": "^8.0",
         "matthiasnoback/symfony-dependency-injection-test": "^4.0",
