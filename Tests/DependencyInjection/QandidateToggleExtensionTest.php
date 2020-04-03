@@ -11,7 +11,9 @@
 
 namespace Qandidate\Bundle\ToggleBundle\DependencyInjection;
 
+use Doctrine\Common\Annotations\AnnotationReader;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
+use Qandidate\Bundle\ToggleBundle\Tests\TokenStorage;
 use Qandidate\Toggle\Toggle;
 use Qandidate\Toggle\ToggleCollection\InMemoryCollection;
 use Qandidate\Toggle\ToggleCollection\PredisCollection;
@@ -170,6 +172,9 @@ class QandidateToggleExtensionTest extends AbstractExtensionTestCase
                 ],
             ],
         ]);
+
+        $this->registerService('security.token_storage', new TokenStorage());
+        $this->registerService('annotation_reader', new AnnotationReader());
 
         $this->compile();
         $toggleCollection = $this->container->get('qandidate.toggle.collection');
