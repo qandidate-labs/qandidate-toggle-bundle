@@ -2,6 +2,7 @@
 
 namespace Qandidate\Bundle\ToggleBundle\Tests\EventListener;
 
+use PHPUnit\Framework\TestCase;
 use Qandidate\Bundle\ToggleBundle\Annotations\Toggle;
 use Qandidate\Bundle\ToggleBundle\EventListener\ToggleListener;
 use Qandidate\Bundle\ToggleBundle\Tests\EventListener\Fixture\FooControllerToggleAtClassAndMethod;
@@ -14,24 +15,22 @@ use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 
-class ToggleListenerTest extends \PHPUnit_Framework_TestCase
+class ToggleListenerTest extends TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         $this->request = $this->createRequest();
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         $this->listener = null;
         $this->request = null;
     }
 
-    /**
-     * @expectedException \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
-     */
     public function testInactiveToggleAnnotationAtMethod()
     {
+        $this->expectException('Symfony\Component\HttpKernel\Exception\NotFoundHttpException');
         $this->listener = $this->createListener(false);
         $controller = new FooControllerToggleAtClassAndMethod();
 
@@ -39,11 +38,9 @@ class ToggleListenerTest extends \PHPUnit_Framework_TestCase
         $this->listener->onKernelController($this->event);
     }
 
-    /**
-     * @expectedException \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
-     */
     public function testInactiveToggleAnnotationAtClass()
     {
+        $this->expectException('Symfony\Component\HttpKernel\Exception\NotFoundHttpException');
         $this->listener = $this->createListener(false);
         $controller = new FooControllerToggleAtClassAndMethod();
 
@@ -62,11 +59,9 @@ class ToggleListenerTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue(true);
     }
 
-    /**
-     * @expectedException \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
-     */
     public function testInactiveToggleAnnotationAtInvoke()
     {
+        $this->expectException('Symfony\Component\HttpKernel\Exception\NotFoundHttpException');
         $this->listener = $this->createListener(false);
         $controller = new FooControllerToggleAtInvoke();
 
@@ -87,9 +82,7 @@ class ToggleListenerTest extends \PHPUnit_Framework_TestCase
 
     protected function createToggleManager($isToggleActive)
     {
-        $toggleManager = $this->getMockBuilder('Qandidate\Toggle\ToggleManager')
-            ->disableOriginalConstructor()
-            ->getMock();
+        $toggleManager = $this->createMock('Qandidate\Toggle\ToggleManager');
 
         $toggleManager->method('active')
             ->willReturn($isToggleActive);

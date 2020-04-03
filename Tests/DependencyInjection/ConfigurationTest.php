@@ -9,12 +9,14 @@
  * file that was distributed with this source code.
  */
 
-namespace Qandidate\Bundle\ToggleBundle\DependencyInjection;
+namespace Qandidate\Bundle\ToggleBundle\Tests\DependencyInjection;
 
 use Matthias\SymfonyConfigTest\PhpUnit\ConfigurationTestCaseTrait;
+use PHPUnit\Framework\TestCase;
+use Qandidate\Bundle\ToggleBundle\DependencyInjection\Configuration;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 
-class ConfigurationTest extends \PHPUnit_Framework_TestCase
+class ConfigurationTest extends TestCase
 {
     use ConfigurationTestCaseTrait;
 
