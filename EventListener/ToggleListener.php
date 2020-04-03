@@ -9,7 +9,7 @@ use Doctrine\Common\Util\ClassUtils;
 use Qandidate\Bundle\ToggleBundle\Annotations\Toggle;
 use Qandidate\Toggle\Context;
 use Qandidate\Toggle\ToggleManager;
-use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
+use Symfony\Component\HttpKernel\Event\ControllerEvent;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ToggleListener
@@ -25,7 +25,7 @@ class ToggleListener
         $this->context = $context;
     }
 
-    public function onKernelController(FilterControllerEvent $event)
+    public function onKernelController(ControllerEvent $event)
     {
         $controller = $event->getController();
 
