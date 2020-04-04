@@ -25,9 +25,7 @@ before_script:
   - travis_retry composer update $COMPOSER_FLAGS
 
 script:
-  - vendor/bin/phpunit
-  - git log $(git describe --abbrev=0 --tags)...HEAD --no-merges --pretty=format:"* [%h](http://github.com/${TRAVIS_REPO_SLUG}/commit/%H) %s (%cN)"
-
-branches:
-  only:
-    - master
+  - make test
+  - make qa
+  - make license
+  - make changelog
