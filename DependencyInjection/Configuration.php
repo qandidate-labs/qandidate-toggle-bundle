@@ -25,9 +25,7 @@ class Configuration implements ConfigurationInterface
     {
         $treeBuilder = new TreeBuilder('qandidate_toggle');
 
-        $rootNode = \method_exists($treeBuilder, 'getRootNode') ? $treeBuilder->getRootNode() : $treeBuilder->root('qandidate_toggle');
-
-        $rootNode
+        $treeBuilder->getRootNode()
             ->children()
                 ->enumNode('persistence')
                     ->values(['in_memory', 'redis', 'factory', 'config'])

@@ -35,9 +35,6 @@ class ToggleCollector extends DataCollector
      */
     private $contextFactory;
 
-    /**
-     * ToggleCollector constructor.
-     */
     public function __construct(ToggleManager $toggleManager, ContextFactory $contextFactory)
     {
         $this->toggleManager = $toggleManager;
@@ -47,11 +44,9 @@ class ToggleCollector extends DataCollector
     /**
      * Collects data for the given Request and Response.
      *
-     * @param Request    $request   A Request instance
-     * @param Response   $response  A Response instance
-     * @param \Exception $exception An Exception instance
+     * @return void
      */
-    public function collect(Request $request, Response $response, \Exception $exception = null)
+    public function collect(Request $request, Response $response, \Throwable $exception = null)
     {
         $serializer = new ToggleSerializer(new OperatorConditionSerializer(new OperatorSerializer()));
 
@@ -63,33 +58,25 @@ class ToggleCollector extends DataCollector
         $this->data['context'] = $this->contextFactory->createContext();
     }
 
-    /**
-     * @return Context
-     */
-    public function getContext()
+    public function getContext(): ?Context
     {
         return $this->data['context'];
     }
 
-    /**
-     * @return array
-     */
-    public function getToggleDetails()
+    public function getToggleDetails(): array
     {
         return $this->data['toggleDetails'];
     }
 
     /**
      * Returns the name of the collector.
-     *
-     * @return string The collector name
      */
-    public function getName()
+    public function getName(): string
     {
         return 'qandidate.toggle_collector';
     }
 
-    public function reset()
+    public function reset(): void
     {
         $this->data = [];
     }

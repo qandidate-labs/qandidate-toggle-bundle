@@ -23,7 +23,7 @@
     },
     "require": {
         "php": ">=7.2",
-        "qandidate/toggle": "~1.0",
+        "qandidate/toggle": "^2.0",
         "symfony/framework-bundle": "^4.4||^5.0",
         "symfony/http-foundation": "^4.4||^5.0",
         "symfony/http-kernel": "^4.4||^5.0",
@@ -37,7 +37,8 @@
         "phpunit/phpunit": "^8.0",
         "matthiasnoback/symfony-dependency-injection-test": "^4.0",
         "matthiasnoback/symfony-config-test": "^4.0",
-        "broadway/coding-standard": "^1.0"
+        "broadway/coding-standard": "^1.0",
+        "phpstan/phpstan": "@stable"
     },
     "suggest": {
         "twig/twig": "For using the twig helper"

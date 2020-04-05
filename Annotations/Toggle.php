@@ -9,5 +9,8 @@ namespace Qandidate\Bundle\ToggleBundle\Annotations;
  */
 class Toggle
 {
+    /**
+     * @var string
+     */
     public $name;
 }
