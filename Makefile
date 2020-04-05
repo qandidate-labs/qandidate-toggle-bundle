@@ -25,7 +25,7 @@ changelog:
 
 .PHONY: license
 license:
-	vendor/bin/docheader check --no-interaction --ansi -vvv {lib,test,examples}
+	vendor/bin/docheader check --no-interaction --ansi -vvv --exclude-dir=vendor --exclude-dir=var .
 
 # Based on https://suva.sh/posts/well-documented-makefiles/
 help:  ## Display this help
