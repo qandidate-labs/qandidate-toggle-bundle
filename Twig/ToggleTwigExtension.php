@@ -30,12 +30,7 @@ class ToggleTwigExtension extends Twig_Extension
         $this->contextFactory = $contextFactory;
     }
 
-    /**
-     * @param string $name
-     *
-     * @return bool
-     */
-    public function is_active($name)
+    public function is_active(string $name): bool
     {
         return $this->toggleManager->active($name, $this->contextFactory->createContext());
     }
@@ -60,10 +55,7 @@ class ToggleTwigExtension extends Twig_Extension
         ];
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getName()
+    public function getName(): string
     {
         return 'qandidate_toggle_twig_extension';
     }

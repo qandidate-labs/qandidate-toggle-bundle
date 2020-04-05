@@ -25,7 +25,7 @@ class ToggleListener
         $this->context = $context;
     }
 
-    public function onKernelController(ControllerEvent $event)
+    public function onKernelController(ControllerEvent $event): void
     {
         $controller = $event->getController();
 

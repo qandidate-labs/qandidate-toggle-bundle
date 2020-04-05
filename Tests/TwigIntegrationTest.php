@@ -55,7 +55,7 @@ class TwigIntegrationTest extends Twig_Test_IntegrationTestCase
 
 class StubContextFactory extends ContextFactory
 {
-    public function createContext()
+    public function createContext(): Context
     {
         return new Context();
     }

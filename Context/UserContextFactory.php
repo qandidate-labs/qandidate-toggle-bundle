@@ -19,22 +19,24 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 
 class UserContextFactory extends ContextFactory
 {
+    /**
+     * @var TokenStorageInterface
+     */
+    private $tokenStorage;
+
     public function __construct(TokenStorageInterface $tokenStorage)
     {
         $this->tokenStorage = $tokenStorage;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function createContext()
+    public function createContext(): Context
     {
         $context = new Context();
 
         $token = $this->tokenStorage->getToken();
 
         if (null !== $token) {
-            $context->set('username', $this->tokenStorage->getToken()->getUsername());
+            $context->set('username', $token->getUsername());
         }
 
         return $context;
