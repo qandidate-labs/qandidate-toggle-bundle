@@ -19,9 +19,9 @@ use Qandidate\Toggle\ContextFactory;
 use Qandidate\Toggle\Toggle;
 use Qandidate\Toggle\ToggleCollection\InMemoryCollection;
 use Qandidate\Toggle\ToggleManager;
-use Twig_Test_IntegrationTestCase;
+use Twig\Test\IntegrationTestCase;
 
-class TwigIntegrationTest extends Twig_Test_IntegrationTestCase
+class TwigIntegrationTest extends IntegrationTestCase
 {
     private $contextFactory;
     private $toggleManager;

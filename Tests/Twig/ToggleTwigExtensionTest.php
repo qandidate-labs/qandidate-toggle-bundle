@@ -19,6 +19,7 @@ use Qandidate\Toggle\Context;
 use Qandidate\Toggle\Toggle;
 use Qandidate\Toggle\ToggleCollection\InMemoryCollection;
 use Qandidate\Toggle\ToggleManager;
+use Twig\TwigFunction;
 
 class ToggleTwigExtensionTest extends TestCase
 {
@@ -45,7 +46,7 @@ class ToggleTwigExtensionTest extends TestCase
         $functions = $this->extension->getFunctions();
 
         $this->assertCount(1, $functions);
-        $this->assertInstanceof('Twig_SimpleFunction', $functions[0]);
+        $this->assertInstanceof(TwigFunction::class, $functions[0]);
         $this->assertEquals('feature_is_active', $functions[0]->getName());
     }
 

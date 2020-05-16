@@ -15,11 +15,11 @@ namespace Qandidate\Bundle\ToggleBundle\Twig;
 
 use Qandidate\Toggle\ContextFactory;
 use Qandidate\Toggle\ToggleManager;
-use Twig_Extension;
-use Twig_SimpleFunction;
-use Twig_SimpleTest;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
+use Twig\TwigTest;
 
-class ToggleTwigExtension extends Twig_Extension
+class ToggleTwigExtension extends AbstractExtension
 {
     private $contextFactory;
     private $toggleManager;
@@ -41,7 +41,7 @@ class ToggleTwigExtension extends Twig_Extension
     public function getFunctions()
     {
         return [
-            new Twig_SimpleFunction('feature_is_active', [$this, 'is_active']),
+            new TwigFunction('feature_is_active', [$this, 'is_active']),
         ];
     }
 
@@ -51,7 +51,7 @@ class ToggleTwigExtension extends Twig_Extension
     public function getTests()
     {
         return [
-            new Twig_SimpleTest('active feature', [$this, 'is_active']),
+            new TwigTest('active feature', [$this, 'is_active']),
         ];
     }
 
