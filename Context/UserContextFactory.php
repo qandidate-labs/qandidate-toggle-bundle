@@ -15,6 +15,7 @@ namespace Qandidate\Bundle\ToggleBundle\Context;
 
 use Qandidate\Toggle\Context;
 use Qandidate\Toggle\ContextFactory;
+use Symfony\Component\Security\Core\Authentication\Token\NullToken;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class UserContextFactory extends ContextFactory
@@ -35,8 +36,8 @@ class UserContextFactory extends ContextFactory
 
         $token = $this->tokenStorage->getToken();
 
-        if (null !== $token) {
-            $context->set('username', $token->getUsername());
+        if (null !== $token && !$token instanceof NullToken) {
+            $context->set('username', method_exists($token, 'getUserIdentifier') ? $token->getUserIdentifier() : $token->getUsername());
         }
 
         return $context;
