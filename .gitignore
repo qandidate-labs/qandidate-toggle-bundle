@@ -4,4 +4,4 @@ composer.lock
 /Tests/Functional/logs
 .phpunit.result.cache
 var/
-.php_cs.cache
+.php-cs-fixer.cache
