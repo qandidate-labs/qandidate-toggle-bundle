@@ -20,7 +20,7 @@ use Qandidate\Bundle\ToggleBundle\Annotations\Toggle;
  */
 class FooControllerToggleAtClassAndMethod
 {
-    const METHOD_EXECUTED = 'method.executed';
+    public const METHOD_EXECUTED = 'method.executed';
 
     /**
      * @Toggle("another-cool-feature")

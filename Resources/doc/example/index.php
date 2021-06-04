@@ -94,7 +94,7 @@ class AppKernel extends Kernel
         $context = new \Qandidate\Toggle\Context();
         $context->set('user_id', 43);
 
-        $output = array_map(function (\Qandidate\Toggle\Toggle $toggle) use ($toggleManager, $context) {
+        $output = array_map(function (Qandidate\Toggle\Toggle $toggle) use ($toggleManager, $context) {
             return [
                 'name' => $toggle->getName(),
                 'active' => $toggleManager->active($toggle->getName(), $context),
