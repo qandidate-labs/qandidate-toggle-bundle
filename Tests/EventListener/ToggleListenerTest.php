@@ -37,7 +37,7 @@ class ToggleListenerTest extends TestCase
         $this->request = null;
     }
 
-    public function testInactiveToggleAnnotationAtMethod()
+    public function test_inactive_toggle_annotation_at_method()
     {
         $this->expectException('Symfony\Component\HttpKernel\Exception\NotFoundHttpException');
         $this->listener = $this->createListener(false);
@@ -47,7 +47,7 @@ class ToggleListenerTest extends TestCase
         $this->listener->onKernelController($this->event);
     }
 
-    public function testInactiveToggleAnnotationAtClass()
+    public function test_inactive_toggle_annotation_at_class()
     {
         $this->expectException('Symfony\Component\HttpKernel\Exception\NotFoundHttpException');
         $this->listener = $this->createListener(false);
@@ -57,7 +57,7 @@ class ToggleListenerTest extends TestCase
         $this->listener->onKernelController($this->event);
     }
 
-    public function testActiveToggleAnnotationAtMethod()
+    public function test_active_toggle_annotation_at_method()
     {
         $this->listener = $this->createListener(true);
         $controller = new FooControllerToggleAtClassAndMethod();
@@ -68,7 +68,7 @@ class ToggleListenerTest extends TestCase
         $this->assertTrue(true);
     }
 
-    public function testInactiveToggleAnnotationAtInvoke()
+    public function test_inactive_toggle_annotation_at_invoke()
     {
         $this->expectException('Symfony\Component\HttpKernel\Exception\NotFoundHttpException');
         $this->listener = $this->createListener(false);
@@ -78,7 +78,7 @@ class ToggleListenerTest extends TestCase
         $this->listener->onKernelController($this->event);
     }
 
-    public function testActiveToggleAnnotationAtInvoke()
+    public function test_active_toggle_annotation_at_invoke()
     {
         $this->listener = $this->createListener(true);
         $controller = new FooControllerToggleAtInvoke();
