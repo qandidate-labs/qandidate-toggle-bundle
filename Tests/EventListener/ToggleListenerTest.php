@@ -113,7 +113,7 @@ class ToggleListenerTest extends TestCase
 
     protected function getControllerEvent($controller, Request $request)
     {
-        $mockKernel = $this->getMockForAbstractClass('Symfony\Component\HttpKernel\Kernel', ['', '']);
+        $mockKernel = $this->getMockForAbstractClass('Symfony\Component\HttpKernel\Kernel', ['test', '']);
 
         return new ControllerEvent($mockKernel, $controller, $request, HttpKernelInterface::MASTER_REQUEST);
     }
