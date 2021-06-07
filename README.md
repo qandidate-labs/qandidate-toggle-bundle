@@ -4,7 +4,7 @@ This Bundle provides the integration with [our toggle library]. It provides the
 services and configuration you need to implement feature toggles in your
 application.
 
-[![Build Status](https://travis-ci.org/qandidate-labs/qandidate-toggle-bundle.svg?branch=master)](https://travis-ci.org/qandidate-labs/qandidate-toggle-bundle)
+![build status](https://github.com/qandidate-labs/qandidate-toggle-bundle/actions/workflows/ci.yml/badge.svg)
 
 [our toggle library]: https://github.com/qandidate-labs/qandidate-toggle
 
