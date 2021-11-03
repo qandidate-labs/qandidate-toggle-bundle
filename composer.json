@@ -38,7 +38,7 @@
         "matthiasnoback/symfony-dependency-injection-test": "^4.0",
         "matthiasnoback/symfony-config-test": "^4.0",
         "broadway/coding-standard": "^1.2",
-        "phpstan/phpstan": "@stable"
+        "phpstan/phpstan": "^1.0"
     },
     "suggest": {
         "twig/twig": "For using the twig helper"

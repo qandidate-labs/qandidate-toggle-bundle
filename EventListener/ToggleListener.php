@@ -39,7 +39,7 @@ class ToggleListener
         $controller = $event->getController();
 
         if (is_array($controller)) {
-            $class = ClassUtils::getClass($controller[0]);
+            $class = ClassUtils::getClass((object) $controller[0]);
             $object = new \ReflectionClass($class);
             $method = $object->getMethod($controller[1]);
         } else {
