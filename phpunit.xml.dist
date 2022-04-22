@@ -8,7 +8,7 @@
          convertWarningsToExceptions="true"
          processIsolation="false"
          stopOnFailure="false"
-         bootstrap="Tests/bootstrap.php"
+         bootstrap="vendor/autoload.php"
 >
   <testsuites>
     <testsuite name="Qandidate Feature Toggle Bundle Test Suite">

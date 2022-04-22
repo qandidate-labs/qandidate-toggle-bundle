@@ -11,6 +11,10 @@
 
 declare(strict_types=1);
 
+namespace Qandidate\Bundle\ToggleBundle\Tests\Functional;
+
+use Qandidate\Bundle\ToggleBundle\QandidateToggleBundle;
+use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\HttpKernel\Kernel;
 
@@ -19,8 +23,8 @@ class AppKernel extends Kernel
     public function registerBundles()
     {
         return [
-            new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
-            new Qandidate\Bundle\ToggleBundle\QandidateToggleBundle(),
+            new FrameworkBundle(),
+            new QandidateToggleBundle(),
         ];
     }
 

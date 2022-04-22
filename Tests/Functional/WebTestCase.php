@@ -19,8 +19,6 @@ class WebTestCase extends BaseWebTestCase
 {
     protected static function getKernelClass()
     {
-        require __DIR__.'/AppKernel.php';
-
-        return 'AppKernel';
+        return AppKernel::class;
     }
 }
