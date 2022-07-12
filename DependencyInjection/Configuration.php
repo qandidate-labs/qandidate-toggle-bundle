@@ -62,7 +62,6 @@ class Configuration implements ConfigurationInterface
                                 ->prototype('array')
                                     ->children()
                                         ->scalarNode('name')->end()
-                                        ->scalarNode('strategy')->end()
                                         ->scalarNode('key')->end()
                                         ->arrayNode('operator')
                                             ->prototype('variable')
