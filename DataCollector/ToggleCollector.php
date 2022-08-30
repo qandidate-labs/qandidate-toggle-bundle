@@ -51,7 +51,9 @@ class ToggleCollector extends DataCollector
         $serializer = new ToggleSerializer(new OperatorConditionSerializer(new OperatorSerializer()));
 
         $toggleData = array_map(function (Toggle $toggle) use ($serializer) {
-            return $serializer->serialize($toggle);
+            $result = $serializer->serialize($toggle);
+            $result['active'] = $this->toggleManager->active($toggle->getName(), $this->contextFactory->createContext());
+            return $result;
         }, $this->toggleManager->all());
 
         $this->data['toggleDetails'] = $toggleData;

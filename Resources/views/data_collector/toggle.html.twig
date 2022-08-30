@@ -10,7 +10,7 @@
         {% for toggle in collector.toggleDetails %}
             <div class="sf-toolbar-info-piece">
                 <b>{{ toggle.name }}</b>
-                {% if toggle.name is active feature %}
+                {% if toggle.active %}
                     <span class="sf-toolbar-status sf-toolbar-status-green">active</span>
                 {% else %}
                     <span class="sf-toolbar-status sf-toolbar-status-yellow">inactive</span>
@@ -73,7 +73,7 @@
                     <td>{{ toggleDetails.name }}</td>
                     <td>{{ block('toggle_detail_conditions') }}</td>
                     <td>{{ toggleDetails.status }}</td>
-                    {% if toggleDetails.name is active feature %}
+                    {% if toggleDetails.active %}
                         <td><span class="label status-success">active</span></td>
                     {% else %}
                         <td><span class="label status-warning">inactive</span></td>
