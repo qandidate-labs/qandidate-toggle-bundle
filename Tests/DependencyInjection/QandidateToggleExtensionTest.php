@@ -36,6 +36,7 @@ class QandidateToggleExtensionTest extends AbstractExtensionTestCase
 
     /**
      * @test
+     *
      * @doesNotPerformAssertions
      */
     public function it_builds_the_container_with_empty_config()

@@ -27,6 +27,7 @@ class ContextFactoryTest extends WebTestCase
 
     /**
      * @test
+     *
      * @doesNotPerformAssertions
      */
     public function it_has_the_factory_service()
