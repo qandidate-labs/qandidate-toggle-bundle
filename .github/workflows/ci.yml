@@ -16,15 +16,14 @@ jobs:
     runs-on: "ubuntu-20.04"
     strategy:
       matrix:
-        php-version:
-          - "7.4"
-          - "8.0"
+        php-version: # https://www.php.net/supported-versions.php
           - "8.1"
           - "8.2"
         symfony-version: # https://symfony.com/releases
-          - "4.4"
-          - "5.2"
-          - "5.3"
+          - "6.1"
+          - "6.2"
+    env:
+      SYMFONY_REQUIRE: "${{ matrix.symfony-version }}"
     steps:
       - name: "Checkout"
         uses: "actions/checkout@v2"
@@ -37,10 +36,12 @@ jobs:
           fail-fast: true
       - name: "Validate composer.json and composer.lock"
         run: "composer validate --strict --no-interaction --ansi"
+      - name: "Install symfony/flex" # see https://symfony.com/doc/current/bundles/best_practices.html#require-a-specific-symfony-version
+        run: |
+          composer global config --no-plugins allow-plugins.symfony/flex true
+          composer global require --no-progress --no-scripts --no-plugins symfony/flex
       - name: "Install dependencies with Composer"
-        uses: "ramsey/composer-install@v1"
-      - name: "Install specific Symfony version"
-        run: "composer --no-update require symfony/symfony:^${{ matrix.symfony-version }}"
+        run: composer update --prefer-dist --no-progress
       - name: "Run tests"
         run: "make test"
 
@@ -53,7 +54,7 @@ jobs:
       - name: "Install PHP"
         uses: "shivammathur/setup-php@v2"
         with:
-          php-version: "8.0"
+          php-version: "8.1"
           coverage: "none"
       - name: "Install dependencies with Composer"
         uses: "ramsey/composer-install@v1"
@@ -79,7 +80,7 @@ jobs:
       - name: "Install PHP"
         uses: "shivammathur/setup-php@v2"
         with:
-          php-version: "8.0"
+          php-version: "8.1"
           coverage: "none"
       - name: "Install dependencies with Composer"
         uses: "ramsey/composer-install@v1"
