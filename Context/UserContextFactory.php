@@ -37,7 +37,7 @@ class UserContextFactory extends ContextFactory
         $token = $this->tokenStorage->getToken();
 
         if (null !== $token && !$token instanceof NullToken) {
-            $context->set('username', method_exists($token, 'getUserIdentifier') ? $token->getUserIdentifier() : $token->getUsername());
+            $context->set('username', method_exists($token, 'getUserIdentifier') ? $token->getUserIdentifier() : $token->getUserIdentifier());
         }
 
         return $context;

@@ -24,17 +24,17 @@
     "require": {
         "php": ">=7.2",
         "qandidate/toggle": "^2.0",
-        "symfony/framework-bundle": "^4.4||^5.0",
-        "symfony/http-foundation": "^4.4.7||^5.0.7",
-        "symfony/http-kernel": "^4.4.13||^5.1.5",
-        "symfony/security-bundle": "^4.4||^5.0",
+        "symfony/framework-bundle": "^6.0.16||^6.1.8||^6.2.2",
+        "symfony/http-foundation": "^6.0.16||^6.1.8||^6.2.2",
+        "symfony/http-kernel": "^6.0.16||^6.1.8||^6.2.2",
+        "symfony/security-bundle": "^6.0.16||^6.1.8||^6.2.2",
         "doctrine/common":"^2.13||^3.0",
         "doctrine/annotations": "^1.13"
     },
     "require-dev": {
-        "symfony/browser-kit": "^4.4||^5.0",
+        "symfony/browser-kit": "^6.0.16||^6.1.8||^6.2.2",
         "twig/twig": "^3.0",
-        "symfony/twig-bundle": "^4.4||^5.0",
+        "symfony/twig-bundle": "^6.0.16||^6.1.8||^6.2.2",
         "phpunit/phpunit": "^9.5",
         "matthiasnoback/symfony-dependency-injection-test": "^4.0",
         "matthiasnoback/symfony-config-test": "^4.0",

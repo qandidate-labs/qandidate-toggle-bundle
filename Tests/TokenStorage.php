@@ -23,7 +23,7 @@ class TokenStorage implements TokenStorageInterface
     /**
      * {@inheritdoc}
      */
-    public function getToken()
+    public function getToken(): ?TokenInterface
     {
         return $this->token;
     }
