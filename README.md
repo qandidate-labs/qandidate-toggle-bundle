@@ -135,22 +135,18 @@ public function articleAction(Request $request)
 You can find a working example using the Symfony [MicroKernelTrait](https://symfony.com/doc/current/configuration/micro_kernel_trait.html)
 in the [Resources/doc/example](https://github.com/qandidate-labs/qandidate-toggle-bundle/tree/master/Resources/doc/example) directory.
 
-## Annotation Usage
+## Attribute Usage
 
-You can also use the `@Toggle` annotation on a controller. When the toggle isn't active a 404 exception is thrown.
+You can also use the `#[Toggle]` attribute on a controller. When the toggle isn't
+active a 404 exception is thrown.
 
 ```php
-use Qandidate\Bundle\ToggleBundle\Annotations\Toggle;
+use Qandidate\Bundle\ToggleBundle\Attribute\Toggle;
 
-/**
- * @Toggle("cool-feature")
- */
+#[Toggle('cool-feature')]
 class FooController
 {
-
-    /**
-     * @Toggle("another-cool-feature")
-     */
+    #[Toggle('another-cool-feature')]
     public function barAction()
     {
     }

@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Qandidate\Bundle\ToggleBundle\EventListener;
 
-use Qandidate\Bundle\ToggleBundle\Annotations\Toggle;
+use Qandidate\Bundle\ToggleBundle\Attribute\Toggle;
 use Qandidate\Toggle\Context;
 use Qandidate\Toggle\ToggleManager;
 use Symfony\Component\HttpKernel\Event\ControllerEvent;

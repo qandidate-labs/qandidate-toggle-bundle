@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace Qandidate\Bundle\ToggleBundle\Tests\EventListener;
 
 use PHPUnit\Framework\TestCase;
-use Qandidate\Bundle\ToggleBundle\Annotations\Toggle;
+use Qandidate\Bundle\ToggleBundle\Attribute\Toggle;
 use Qandidate\Bundle\ToggleBundle\EventListener\ToggleListener;
 use Qandidate\Bundle\ToggleBundle\Tests\EventListener\Fixture\FooControllerToggleAtClassAndMethod;
 use Qandidate\Bundle\ToggleBundle\Tests\EventListener\Fixture\FooControllerToggleAtInvoke;
