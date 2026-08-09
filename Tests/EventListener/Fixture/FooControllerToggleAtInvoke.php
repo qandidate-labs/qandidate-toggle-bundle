@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Qandidate\Bundle\ToggleBundle\Tests\EventListener\Fixture;
 
-use Qandidate\Bundle\ToggleBundle\Annotations\Toggle;
+use Qandidate\Bundle\ToggleBundle\Attribute\Toggle;
 
 class FooControllerToggleAtInvoke
 {
