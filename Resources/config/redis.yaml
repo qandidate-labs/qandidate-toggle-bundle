@@ -1,0 +1,6 @@
+services:
+    qandidate.toggle.collection.predis:
+        class: '%qandidate.toggle.collection.predis.class%'
+        arguments:
+            - '%qandidate.toggle.redis.namespace%'
+            - '@qandidate.toggle.redis.client'

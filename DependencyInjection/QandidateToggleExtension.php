@@ -18,7 +18,7 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\Alias;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
-use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
+use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
@@ -26,14 +26,14 @@ class QandidateToggleExtension extends Extension
 {
     public function load(array $configs, ContainerBuilder $container): void
     {
-        $loader = new PhpFileLoader($container, new FileLocator(__DIR__.'/../Resources/config/'));
-        $loader->load('services.php');
+        $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config/'));
+        $loader->load('services.yaml');
 
         $config = $this->processConfiguration(new Configuration(), $configs);
         $collection = 'in_memory';
         switch (true) {
             case 'redis' === $config['persistence']:
-                $loader->load('redis.php');
+                $loader->load('redis.yaml');
 
                 $collection = 'predis';
 
