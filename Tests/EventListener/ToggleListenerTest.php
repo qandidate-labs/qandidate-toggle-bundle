@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace Qandidate\Bundle\ToggleBundle\Tests\EventListener;
 
-use Doctrine\Common\Annotations\AnnotationReader;
 use PHPUnit\Framework\TestCase;
 use Qandidate\Bundle\ToggleBundle\Annotations\Toggle;
 use Qandidate\Bundle\ToggleBundle\EventListener\ToggleListener;
@@ -26,6 +25,11 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
 
 class ToggleListenerTest extends TestCase
 {
+    private $listener;
+    private $request;
+
+    private $event;
+
     public function setUp(): void
     {
         $this->request = $this->createRequest();
@@ -103,7 +107,7 @@ class ToggleListenerTest extends TestCase
     {
         $toggleManager = $this->createToggleManager($isToggleActive);
 
-        return new ToggleListener(new AnnotationReader(), $toggleManager, new Context());
+        return new ToggleListener($toggleManager, new Context());
     }
 
     protected function createRequest()
@@ -113,8 +117,8 @@ class ToggleListenerTest extends TestCase
 
     protected function getControllerEvent($controller, Request $request)
     {
-        $mockKernel = $this->getMockForAbstractClass('Symfony\Component\HttpKernel\Kernel', ['test', '']);
+        $mockKernel = $this->createMock(HttpKernelInterface::class);
 
-        return new ControllerEvent($mockKernel, $controller, $request, HttpKernelInterface::MASTER_REQUEST);
+        return new ControllerEvent($mockKernel, $controller, $request, HttpKernelInterface::MAIN_REQUEST);
     }
 }

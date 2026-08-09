@@ -13,8 +13,6 @@ declare(strict_types=1);
 
 namespace Qandidate\Bundle\ToggleBundle\EventListener;
 
-use Doctrine\Common\Annotations\Reader;
-use Doctrine\Common\Util\ClassUtils;
 use Qandidate\Bundle\ToggleBundle\Annotations\Toggle;
 use Qandidate\Toggle\Context;
 use Qandidate\Toggle\ToggleManager;
@@ -23,13 +21,11 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ToggleListener
 {
-    private $reader;
     private $toggleManager;
     private $context;
 
-    public function __construct(Reader $reader, ToggleManager $toggleManager, Context $context)
+    public function __construct(ToggleManager $toggleManager, Context $context)
     {
-        $this->reader = $reader;
         $this->toggleManager = $toggleManager;
         $this->context = $context;
     }
@@ -39,25 +35,16 @@ class ToggleListener
         $controller = $event->getController();
 
         if (is_array($controller)) {
-            $class = ClassUtils::getClass((object) $controller[0]);
-            $object = new \ReflectionClass($class);
+            $object = new \ReflectionClass($controller[0]);
             $method = $object->getMethod($controller[1]);
         } else {
             $object = new \ReflectionClass($controller);
             $method = $object->getMethod('__invoke');
         }
 
-        foreach ($this->reader->getClassAnnotations($object) as $annotation) {
-            if ($annotation instanceof Toggle) {
-                if (!$this->toggleManager->active($annotation->name, $this->context)) {
-                    throw new NotFoundHttpException();
-                }
-            }
-        }
-
-        foreach ($this->reader->getMethodAnnotations($method) as $annotation) {
-            if ($annotation instanceof Toggle) {
-                if (!$this->toggleManager->active($annotation->name, $this->context)) {
+        foreach ([$object, $method] as $reflection) {
+            foreach ($reflection->getAttributes(Toggle::class) as $attribute) {
+                if (!$this->toggleManager->active($attribute->newInstance()->name, $this->context)) {
                     throw new NotFoundHttpException();
                 }
             }

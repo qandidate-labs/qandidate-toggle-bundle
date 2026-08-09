@@ -13,10 +13,15 @@ declare(strict_types=1);
 
 namespace Qandidate\Bundle\ToggleBundle\Tests\Functional;
 
-use Symfony\Component\Security\Core\Authentication\Token\AnonymousToken;
+use PHPUnit\Framework\Attributes\DoesNotPerformAssertions;
+use PHPUnit\Framework\Attributes\Test;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\Security\Core\User\InMemoryUser;
 
 class ContextFactoryTest extends WebTestCase
 {
+    private $client;
+
     public function setUp(): void
     {
         parent::setUp();
@@ -25,19 +30,14 @@ class ContextFactoryTest extends WebTestCase
         $this->client->getContainer()->get('security.token_storage')->setToken($this->createSecurityToken());
     }
 
-    /**
-     * @test
-     *
-     * @doesNotPerformAssertions
-     */
+    #[Test]
+    #[DoesNotPerformAssertions]
     public function it_has_the_factory_service()
     {
         $this->client->getContainer()->get('qandidate.toggle.user_context_factory');
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_should_use_the_username_from_the_security_context()
     {
         $context = $this->client->getContainer()->get('qandidate.toggle.user_context_factory')->createContext();
@@ -47,6 +47,6 @@ class ContextFactoryTest extends WebTestCase
 
     private function createSecurityToken()
     {
-        return new AnonymousToken('userKey', 'fooUser', ['ROLE_USER']);
+        return new UsernamePasswordToken(new InMemoryUser('fooUser', null, ['ROLE_USER']), 'main', ['ROLE_USER']);
     }
 }

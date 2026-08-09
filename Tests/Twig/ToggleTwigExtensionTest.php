@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Qandidate\Bundle\ToggleBundle\Tests\Twig;
 
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Qandidate\Bundle\ToggleBundle\Twig\ToggleTwigExtension;
 use Qandidate\Toggle\Context;
@@ -32,15 +33,13 @@ class ToggleTwigExtensionTest extends TestCase
         $this->toggleManager = new ToggleManager(new InMemoryCollection());
         $this->contextFactory = $this->getMockBuilder('Qandidate\Toggle\ContextFactory')
             ->disableOriginalConstructor()
-            ->setMethods(['createContext'])
+            ->onlyMethods(['createContext'])
             ->getMock();
 
         $this->extension = new ToggleTwigExtension($this->toggleManager, $this->contextFactory);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_should_provide_an_is_active_function()
     {
         $functions = $this->extension->getFunctions();
@@ -50,9 +49,7 @@ class ToggleTwigExtensionTest extends TestCase
         $this->assertEquals('feature_is_active', $functions[0]->getName());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_should_return_if_a_toggle_is_active()
     {
         $this->contextFactory

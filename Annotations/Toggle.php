@@ -13,13 +13,10 @@ declare(strict_types=1);
 
 namespace Qandidate\Bundle\ToggleBundle\Annotations;
 
-/**
- * @Annotation
- */
+#[\Attribute(\Attribute::TARGET_CLASS | \Attribute::TARGET_METHOD | \Attribute::IS_REPEATABLE)]
 class Toggle
 {
-    /**
-     * @var string
-     */
-    public $name;
+    public function __construct(public string $name = '')
+    {
+    }
 }

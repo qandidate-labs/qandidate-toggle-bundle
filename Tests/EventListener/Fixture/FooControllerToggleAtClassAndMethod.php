@@ -15,16 +15,12 @@ namespace Qandidate\Bundle\ToggleBundle\Tests\EventListener\Fixture;
 
 use Qandidate\Bundle\ToggleBundle\Annotations\Toggle;
 
-/**
- * @Toggle("cool-feature")
- */
+#[Toggle('cool-feature')]
 class FooControllerToggleAtClassAndMethod
 {
     public const METHOD_EXECUTED = 'method.executed';
 
-    /**
-     * @Toggle("another-cool-feature")
-     */
+    #[Toggle('another-cool-feature')]
     public function barAction()
     {
         return self::METHOD_EXECUTED;
