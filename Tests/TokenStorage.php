@@ -20,25 +20,16 @@ class TokenStorage implements TokenStorageInterface
 {
     private $token;
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getToken()
+    public function getToken(): ?TokenInterface
     {
         return $this->token;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function setToken(TokenInterface $token = null)
+    public function setToken(?TokenInterface $token = null): void
     {
         $this->token = $token;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function isGranted($attributes, $object = null)
     {
         return null !== $this->token;

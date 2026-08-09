@@ -1,12 +1,91 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Call to an undefined method Symfony\\\\Component\\\\Config\\\\Definition\\\\Builder\\\\NodeDefinition\\:\\:children\\(\\)\\.$#"
+			message: '#^Call to an undefined method Symfony\\Component\\Security\\Core\\Authentication\\Token\\TokenInterface\:\:getUsername\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: Context/UserContextFactory.php
+
+		-
+			message: '#^Call to function method_exists\(\) with Symfony\\Component\\Security\\Core\\Authentication\\Token\\TokenInterface and ''getUserIdentifier'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: Context/UserContextFactory.php
+
+		-
+			message: '#^Method Qandidate\\Bundle\\ToggleBundle\\DataCollector\\ToggleCollector\:\:getContext\(\) should return Qandidate\\Toggle\\Context\|null but returns mixed\.$#'
+			identifier: return.type
+			count: 1
+			path: DataCollector/ToggleCollector.php
+
+		-
+			message: '#^Method Qandidate\\Bundle\\ToggleBundle\\DataCollector\\ToggleCollector\:\:getToggleDetails\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: DataCollector/ToggleCollector.php
+
+		-
+			message: '#^Method Qandidate\\Bundle\\ToggleBundle\\DataCollector\\ToggleCollector\:\:getToggleDetails\(\) should return array but returns mixed\.$#'
+			identifier: return.type
+			count: 1
+			path: DataCollector/ToggleCollector.php
+
+		-
+			message: '#^Cannot access offset ''collection_factory'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 2
+			path: DependencyInjection/Configuration.php
+
+		-
+			message: '#^Cannot access offset ''method'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
 			count: 1
 			path: DependencyInjection/Configuration.php
 
 		-
-			message: "#^Parameter \\#1 \\$objectOrClass of class ReflectionClass constructor expects class\\-string\\<T of object\\>\\|T of object, callable given\\.$#"
+			message: '#^Cannot access offset ''persistence'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: DependencyInjection/Configuration.php
+
+		-
+			message: '#^Cannot access offset ''service_id'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: DependencyInjection/Configuration.php
+
+		-
+			message: '#^Cannot access offset ''method'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: DependencyInjection/QandidateToggleExtension.php
+
+		-
+			message: '#^Cannot access offset ''service_id'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: DependencyInjection/QandidateToggleExtension.php
+
+		-
+			message: '#^Parameter \#1 \$id of class Symfony\\Component\\DependencyInjection\\Reference constructor expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: DependencyInjection/QandidateToggleExtension.php
+
+		-
+			message: '#^Parameter \#2 \$id of method Symfony\\Component\\DependencyInjection\\ContainerBuilder\:\:setAlias\(\) expects string\|Symfony\\Component\\DependencyInjection\\Alias, mixed given\.$#'
+			identifier: argument.type
+			count: 2
+			path: DependencyInjection/QandidateToggleExtension.php
+
+		-
+			message: '#^Parameter \#2 \$value of method Symfony\\Component\\DependencyInjection\\Container\:\:setParameter\(\) expects array\|bool\|float\|int\|string\|UnitEnum\|null, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: DependencyInjection/QandidateToggleExtension.php
+
+		-
+			message: '#^Parameter \#1 \$objectOrClass of class ReflectionClass constructor expects class\-string\<T of object\>\|T of object, callable given\.$#'
+			identifier: argument.type
 			count: 1
 			path: EventListener/ToggleListener.php
-

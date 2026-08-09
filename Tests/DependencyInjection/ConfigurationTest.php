@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Qandidate\Bundle\ToggleBundle\Tests\DependencyInjection;
 
 use Matthias\SymfonyConfigTest\PhpUnit\ConfigurationTestCaseTrait;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Qandidate\Bundle\ToggleBundle\DependencyInjection\Configuration;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
@@ -22,17 +23,12 @@ class ConfigurationTest extends TestCase
 {
     use ConfigurationTestCaseTrait;
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getConfiguration()
     {
         return new Configuration();
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_accepts_empty_configuration_and_configures_defaults()
     {
         $this->assertProcessedConfigurationEquals(
@@ -49,9 +45,7 @@ class ConfigurationTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_defaults_to_in_memory_persistence()
     {
         $this->assertProcessedConfigurationEquals(
@@ -65,9 +59,7 @@ class ConfigurationTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_configures_toggles_without_conditions()
     {
         $this->assertProcessedConfigurationEquals(
@@ -103,9 +95,7 @@ class ConfigurationTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_configures_toggles_with_conditions()
     {
         $this->assertProcessedConfigurationEquals(
@@ -120,12 +110,12 @@ class ConfigurationTest extends TestCase
                                     'name' => 'operator-condition',
                                     'key' => 'user_id',
                                     'operator' => [
-                                       'name' => 'greater-than',
-                                       'value' => 42,
+                                        'name' => 'greater-than',
+                                        'value' => 42,
                                     ],
                                 ],
                             ],
-                         ],
+                        ],
                     ],
                 ],
             ],
@@ -151,9 +141,7 @@ class ConfigurationTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_configures_toggles_with_inset_operator()
     {
         $this->assertProcessedConfigurationEquals(
@@ -168,12 +156,12 @@ class ConfigurationTest extends TestCase
                                     'name' => 'operator-condition',
                                     'key' => 'user_id',
                                     'operator' => [
-                                       'name' => 'greater-than',
-                                       'values' => [41, 42],
+                                        'name' => 'greater-than',
+                                        'values' => [41, 42],
                                     ],
                                 ],
                             ],
-                         ],
+                        ],
                     ],
                 ],
             ],
@@ -199,9 +187,7 @@ class ConfigurationTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_configures_toggles_with_unanimous_strategy()
     {
         $this->assertProcessedConfigurationEquals(
@@ -265,9 +251,7 @@ class ConfigurationTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_requires_collection_factory_to_be_set_when_persistence_is_factory()
     {
         $this->expectException(InvalidConfigurationException::class);

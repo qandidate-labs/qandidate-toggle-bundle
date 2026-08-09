@@ -43,10 +43,8 @@ class ToggleCollector extends DataCollector
 
     /**
      * Collects data for the given Request and Response.
-     *
-     * @return void
      */
-    public function collect(Request $request, Response $response, \Throwable $exception = null)
+    public function collect(Request $request, Response $response, ?\Throwable $exception = null): void
     {
         $serializer = new ToggleSerializer(new OperatorConditionSerializer(new OperatorSerializer()));
 

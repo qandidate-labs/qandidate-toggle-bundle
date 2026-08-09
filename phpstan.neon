@@ -1,13 +1,12 @@
+includes:
+	- phpstan-baseline.neon
+
 parameters:
 	paths:
 		- .
-	excludes_analyse:
-		- Tests/
-		- vendor/
-		- var/
-		- Resources/doc/example/
-	checkMissingIterableValueType: false
+	excludePaths:
+		- Tests/ (?)
+		- vendor/ (?)
+		- var/ (?)
+		- Resources/doc/example/ (?)
 	inferPrivatePropertyTypeFromConstructor: true
-
-includes:
-    - phpstan-baseline.neon

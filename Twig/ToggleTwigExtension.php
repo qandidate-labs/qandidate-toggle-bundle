@@ -35,19 +35,13 @@ class ToggleTwigExtension extends AbstractExtension
         return $this->toggleManager->active($name, $this->contextFactory->createContext());
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getFunctions()
+    public function getFunctions(): array
     {
         return [
             new TwigFunction('feature_is_active', [$this, 'is_active']),
         ];
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getTests()
     {
         return [
