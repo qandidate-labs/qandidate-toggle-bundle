@@ -1,0 +1,7 @@
+services:
+    security.token_storage:
+        class: Qandidate\Bundle\ToggleBundle\Tests\TokenStorage
+        public: true
+
+    redis_client:
+        class: Predis\Client
