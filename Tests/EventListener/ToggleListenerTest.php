@@ -13,112 +13,89 @@ declare(strict_types=1);
 
 namespace Qandidate\Bundle\ToggleBundle\Tests\EventListener;
 
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
-use Qandidate\Bundle\ToggleBundle\Attribute\Toggle;
 use Qandidate\Bundle\ToggleBundle\EventListener\ToggleListener;
 use Qandidate\Bundle\ToggleBundle\Tests\EventListener\Fixture\FooControllerToggleAtClassAndMethod;
 use Qandidate\Bundle\ToggleBundle\Tests\EventListener\Fixture\FooControllerToggleAtInvoke;
 use Qandidate\Toggle\Context;
+use Qandidate\Toggle\ToggleManager;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\ControllerEvent;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 
+#[CoversClass(ToggleListener::class)]
 class ToggleListenerTest extends TestCase
 {
-    private $listener;
-    private $request;
-
-    private $event;
-
-    public function setUp(): void
+    #[Test]
+    public function it_throws_when_the_toggle_on_the_method_is_inactive(): void
     {
-        $this->request = $this->createRequest();
+        $this->expectException(NotFoundHttpException::class);
+
+        $this->createListener(false)->onKernelController(
+            $this->createControllerEvent([new FooControllerToggleAtClassAndMethod(), 'barAction'])
+        );
     }
 
-    public function tearDown(): void
+    #[Test]
+    public function it_throws_when_the_toggle_on_the_class_is_inactive(): void
     {
-        $this->listener = null;
-        $this->request = null;
+        $this->expectException(NotFoundHttpException::class);
+
+        $this->createListener(false)->onKernelController(
+            $this->createControllerEvent([new FooControllerToggleAtClassAndMethod(), 'bazAction'])
+        );
     }
 
-    public function test_inactive_toggle_annotation_at_method()
+    #[Test]
+    public function it_keeps_the_controller_when_the_toggle_on_the_method_is_active(): void
     {
-        $this->expectException('Symfony\Component\HttpKernel\Exception\NotFoundHttpException');
-        $this->listener = $this->createListener(false);
-        $controller = new FooControllerToggleAtClassAndMethod();
+        $controller = [new FooControllerToggleAtClassAndMethod(), 'barAction'];
+        $event = $this->createControllerEvent($controller);
 
-        $this->event = $this->getControllerEvent([$controller, 'barAction'], $this->request);
-        $this->listener->onKernelController($this->event);
+        $this->createListener(true)->onKernelController($event);
+
+        $this->assertSame($controller, $event->getController());
     }
 
-    public function test_inactive_toggle_annotation_at_class()
+    #[Test]
+    public function it_throws_when_the_toggle_on_invoke_is_inactive(): void
     {
-        $this->expectException('Symfony\Component\HttpKernel\Exception\NotFoundHttpException');
-        $this->listener = $this->createListener(false);
-        $controller = new FooControllerToggleAtClassAndMethod();
+        $this->expectException(NotFoundHttpException::class);
 
-        $this->event = $this->getControllerEvent([$controller, 'bazAction'], $this->request);
-        $this->listener->onKernelController($this->event);
+        $this->createListener(false)->onKernelController(
+            $this->createControllerEvent(new FooControllerToggleAtInvoke())
+        );
     }
 
-    public function test_active_toggle_annotation_at_method()
+    #[Test]
+    public function it_keeps_the_controller_when_the_toggle_on_invoke_is_active(): void
     {
-        $this->listener = $this->createListener(true);
-        $controller = new FooControllerToggleAtClassAndMethod();
-
-        $this->event = $this->getControllerEvent([$controller, 'barAction'], $this->request);
-        $this->listener->onKernelController($this->event);
-        // If we end up here toggle is active, no exception thrown
-        $this->assertTrue(true);
-    }
-
-    public function test_inactive_toggle_annotation_at_invoke()
-    {
-        $this->expectException('Symfony\Component\HttpKernel\Exception\NotFoundHttpException');
-        $this->listener = $this->createListener(false);
         $controller = new FooControllerToggleAtInvoke();
+        $event = $this->createControllerEvent($controller);
 
-        $this->event = $this->getControllerEvent($controller, $this->request);
-        $this->listener->onKernelController($this->event);
+        $this->createListener(true)->onKernelController($event);
+
+        $this->assertSame($controller, $event->getController());
     }
 
-    public function test_active_toggle_annotation_at_invoke()
+    private function createListener(bool $isToggleActive): ToggleListener
     {
-        $this->listener = $this->createListener(true);
-        $controller = new FooControllerToggleAtInvoke();
-
-        $this->event = $this->getControllerEvent($controller, $this->request);
-        $this->listener->onKernelController($this->event);
-        // If we end up here toggle is active, no exception thrown
-        $this->assertTrue(true);
-    }
-
-    protected function createToggleManager($isToggleActive)
-    {
-        $toggleManager = $this->createMock('Qandidate\Toggle\ToggleManager');
-
-        $toggleManager->method('active')
-            ->willReturn($isToggleActive);
-
-        return $toggleManager;
-    }
-
-    protected function createListener($isToggleActive)
-    {
-        $toggleManager = $this->createToggleManager($isToggleActive);
+        $toggleManager = $this->createStub(ToggleManager::class);
+        $toggleManager->method('active')->willReturn($isToggleActive);
 
         return new ToggleListener($toggleManager, new Context());
     }
 
-    protected function createRequest()
+    private function createControllerEvent(callable $controller): ControllerEvent
     {
-        return new Request([], [], []);
-    }
-
-    protected function getControllerEvent($controller, Request $request)
-    {
-        $mockKernel = $this->createMock(HttpKernelInterface::class);
-
-        return new ControllerEvent($mockKernel, $controller, $request, HttpKernelInterface::MAIN_REQUEST);
+        return new ControllerEvent(
+            $this->createStub(HttpKernelInterface::class),
+            $controller,
+            new Request(),
+            HttpKernelInterface::MAIN_REQUEST
+        );
     }
 }

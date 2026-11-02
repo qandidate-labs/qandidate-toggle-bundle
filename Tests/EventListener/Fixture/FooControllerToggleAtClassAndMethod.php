@@ -21,12 +21,12 @@ class FooControllerToggleAtClassAndMethod
     public const METHOD_EXECUTED = 'method.executed';
 
     #[Toggle('another-cool-feature')]
-    public function barAction()
+    public function barAction(): string
     {
         return self::METHOD_EXECUTED;
     }
 
-    public function bazAction()
+    public function bazAction(): string
     {
         return self::METHOD_EXECUTED;
     }

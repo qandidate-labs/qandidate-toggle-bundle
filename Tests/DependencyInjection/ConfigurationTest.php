@@ -14,22 +14,24 @@ declare(strict_types=1);
 namespace Qandidate\Bundle\ToggleBundle\Tests\DependencyInjection;
 
 use Matthias\SymfonyConfigTest\PhpUnit\ConfigurationTestCaseTrait;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Qandidate\Bundle\ToggleBundle\DependencyInjection\Configuration;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 
+#[CoversClass(Configuration::class)]
 class ConfigurationTest extends TestCase
 {
     use ConfigurationTestCaseTrait;
 
-    protected function getConfiguration()
+    protected function getConfiguration(): Configuration
     {
         return new Configuration();
     }
 
     #[Test]
-    public function it_accepts_empty_configuration_and_configures_defaults()
+    public function it_accepts_empty_configuration_and_configures_defaults(): void
     {
         $this->assertProcessedConfigurationEquals(
             [
@@ -46,7 +48,7 @@ class ConfigurationTest extends TestCase
     }
 
     #[Test]
-    public function it_defaults_to_in_memory_persistence()
+    public function it_defaults_to_in_memory_persistence(): void
     {
         $this->assertProcessedConfigurationEquals(
             [
@@ -60,7 +62,7 @@ class ConfigurationTest extends TestCase
     }
 
     #[Test]
-    public function it_configures_toggles_without_conditions()
+    public function it_configures_toggles_without_conditions(): void
     {
         $this->assertProcessedConfigurationEquals(
             [
@@ -96,7 +98,7 @@ class ConfigurationTest extends TestCase
     }
 
     #[Test]
-    public function it_configures_toggles_with_conditions()
+    public function it_configures_toggles_with_conditions(): void
     {
         $this->assertProcessedConfigurationEquals(
             [
@@ -142,7 +144,7 @@ class ConfigurationTest extends TestCase
     }
 
     #[Test]
-    public function it_configures_toggles_with_inset_operator()
+    public function it_configures_toggles_with_inset_operator(): void
     {
         $this->assertProcessedConfigurationEquals(
             [
@@ -188,7 +190,7 @@ class ConfigurationTest extends TestCase
     }
 
     #[Test]
-    public function it_configures_toggles_with_unanimous_strategy()
+    public function it_configures_toggles_with_unanimous_strategy(): void
     {
         $this->assertProcessedConfigurationEquals(
             [
@@ -252,7 +254,7 @@ class ConfigurationTest extends TestCase
     }
 
     #[Test]
-    public function it_requires_collection_factory_to_be_set_when_persistence_is_factory()
+    public function it_requires_collection_factory_to_be_set_when_persistence_is_factory(): void
     {
         $this->expectException(InvalidConfigurationException::class);
         $this->expectExceptionMessage('Invalid configuration for path "qandidate_toggle": When choosing "factory" persistence make sure you set "collection_factory.service_id" and "collection_factory.method"');

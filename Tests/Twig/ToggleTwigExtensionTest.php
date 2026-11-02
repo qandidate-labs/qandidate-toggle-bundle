@@ -13,67 +13,50 @@ declare(strict_types=1);
 
 namespace Qandidate\Bundle\ToggleBundle\Tests\Twig;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Qandidate\Bundle\ToggleBundle\Twig\ToggleTwigExtension;
 use Qandidate\Toggle\Context;
+use Qandidate\Toggle\ContextFactory;
 use Qandidate\Toggle\Toggle;
 use Qandidate\Toggle\ToggleCollection\InMemoryCollection;
 use Qandidate\Toggle\ToggleManager;
-use Twig\TwigFunction;
 
+#[CoversClass(ToggleTwigExtension::class)]
 class ToggleTwigExtensionTest extends TestCase
 {
-    private $contextFactory;
-    private $extension;
-    private $toggleManager;
+    private ToggleManager $toggleManager;
+    private ToggleTwigExtension $extension;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->toggleManager = new ToggleManager(new InMemoryCollection());
-        $this->contextFactory = $this->getMockBuilder('Qandidate\Toggle\ContextFactory')
-            ->disableOriginalConstructor()
-            ->onlyMethods(['createContext'])
-            ->getMock();
 
-        $this->extension = new ToggleTwigExtension($this->toggleManager, $this->contextFactory);
+        $contextFactory = $this->createStub(ContextFactory::class);
+        $contextFactory->method('createContext')->willReturn(new Context());
+
+        $this->extension = new ToggleTwigExtension($this->toggleManager, $contextFactory);
     }
 
     #[Test]
-    public function it_should_provide_an_is_active_function()
+    public function it_should_provide_an_is_active_function(): void
     {
         $functions = $this->extension->getFunctions();
 
         $this->assertCount(1, $functions);
-        $this->assertInstanceof(TwigFunction::class, $functions[0]);
-        $this->assertEquals('feature_is_active', $functions[0]->getName());
+        $this->assertSame('feature_is_active', $functions[0]->getName());
     }
 
     #[Test]
-    public function it_should_return_if_a_toggle_is_active()
+    public function it_should_return_if_a_toggle_is_active(): void
     {
-        $this->contextFactory
-            ->expects($this->any())
-            ->method('createContext')
-            ->will($this->returnValue($this->createEmptyContext()));
-
         $this->assertFalse($this->extension->is_active('foo'));
 
-        $this->toggleManager->add($this->createToggle('foo', Toggle::ALWAYS_ACTIVE));
+        $toggle = new Toggle('foo', []);
+        $toggle->activate(Toggle::ALWAYS_ACTIVE);
+        $this->toggleManager->add($toggle);
 
         $this->assertTrue($this->extension->is_active('foo'));
-    }
-
-    private function createEmptyContext()
-    {
-        return new Context();
-    }
-
-    private function createToggle($name, $status, array $conditions = [])
-    {
-        $toggle = new Toggle($name, $conditions);
-        $toggle->activate($status);
-
-        return $toggle;
     }
 }
