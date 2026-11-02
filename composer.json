@@ -34,7 +34,7 @@
         "symfony/browser-kit": "^6.4 || ^7.4 || ^8.0",
         "twig/twig": "^3.0",
         "symfony/twig-bundle": "^6.4 || ^7.4 || ^8.0",
-        "phpunit/phpunit": "^11.5",
+        "phpunit/phpunit": "^13.4",
         "matthiasnoback/symfony-dependency-injection-test": "^6.2",
         "matthiasnoback/symfony-config-test": "^6.2",
         "friendsofphp/php-cs-fixer": "^3.0",
