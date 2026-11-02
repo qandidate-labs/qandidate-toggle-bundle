@@ -13,33 +13,44 @@ declare(strict_types=1);
 
 namespace Qandidate\Bundle\ToggleBundle\Tests;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use Qandidate\Bundle\ToggleBundle\Twig\ToggleTwigExtension;
 use Qandidate\Toggle\Context;
 use Qandidate\Toggle\ContextFactory;
 use Qandidate\Toggle\Toggle;
 use Qandidate\Toggle\ToggleCollection\InMemoryCollection;
 use Qandidate\Toggle\ToggleManager;
+use Twig\Extension\ExtensionInterface;
 use Twig\Test\IntegrationTestCase;
 
+#[CoversClass(ToggleTwigExtension::class)]
 class TwigIntegrationTest extends IntegrationTestCase
 {
-    private $contextFactory;
-    private $toggleManager;
+    private ToggleManager $toggleManager;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $toggleCollection = new InMemoryCollection();
         $toggleCollection->set('foo', $this->createToggle('foo', true));
         $toggleCollection->set('bar', $this->createToggle('foo', false));
 
-        $this->contextFactory = new StubContextFactory();
         $this->toggleManager = new ToggleManager($toggleCollection);
     }
 
-    public function getExtensions()
+    /**
+     * @return list<ExtensionInterface>
+     */
+    protected function getExtensions(): array
     {
+        $contextFactory = new class extends ContextFactory {
+            public function createContext(): Context
+            {
+                return new Context();
+            }
+        };
+
         return [
-            new ToggleTwigExtension($this->toggleManager, $this->contextFactory),
+            new ToggleTwigExtension($this->toggleManager, $contextFactory),
         ];
     }
 
@@ -48,7 +59,7 @@ class TwigIntegrationTest extends IntegrationTestCase
         return __DIR__.'/Fixtures/';
     }
 
-    private function createToggle($name, $active)
+    private function createToggle(string $name, bool $active): Toggle
     {
         $toggle = new Toggle($name, []);
 
@@ -59,13 +70,5 @@ class TwigIntegrationTest extends IntegrationTestCase
         }
 
         return $toggle;
-    }
-}
-
-class StubContextFactory extends ContextFactory
-{
-    public function createContext(): Context
-    {
-        return new Context();
     }
 }

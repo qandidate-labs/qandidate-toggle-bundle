@@ -18,7 +18,7 @@ use Qandidate\Bundle\ToggleBundle\Attribute\Toggle;
 class FooControllerToggleAtInvoke
 {
     #[Toggle('cool-feature-on-invoke')]
-    public function __invoke()
+    public function __invoke(): string
     {
         return 'method.executed';
     }

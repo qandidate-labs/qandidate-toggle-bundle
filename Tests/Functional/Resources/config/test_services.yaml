@@ -1,6 +1,6 @@
 services:
     security.token_storage:
-        class: Qandidate\Bundle\ToggleBundle\Tests\TokenStorage
+        class: Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage
         public: true
 
     redis_client:

@@ -14,16 +14,17 @@ declare(strict_types=1);
 namespace Qandidate\Bundle\ToggleBundle\Tests\DependencyInjection;
 
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
-use PHPUnit\Framework\Attributes\DoesNotPerformAssertions;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Test;
 use Qandidate\Bundle\ToggleBundle\DependencyInjection\QandidateToggleExtension;
-use Qandidate\Bundle\ToggleBundle\Tests\TokenStorage;
 use Qandidate\Toggle\Toggle;
 use Qandidate\Toggle\ToggleCollection\InMemoryCollection;
 use Qandidate\Toggle\ToggleCollection\PredisCollection;
 use Qandidate\Toggle\ToggleManager;
 use Symfony\Component\DependencyInjection\Reference;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 
+#[CoversClass(QandidateToggleExtension::class)]
 class QandidateToggleExtensionTest extends AbstractExtensionTestCase
 {
     protected function getContainerExtensions(): array
@@ -34,21 +35,14 @@ class QandidateToggleExtensionTest extends AbstractExtensionTestCase
     }
 
     #[Test]
-    #[DoesNotPerformAssertions]
-    public function it_builds_the_container_with_empty_config()
-    {
-        $this->load();
-    }
-
-    #[Test]
-    public function it_aliases_the_in_memory_collection_by_default()
+    public function it_aliases_the_in_memory_collection_by_default(): void
     {
         $this->load();
         $this->assertContainerBuilderHasAlias('qandidate.toggle.collection', 'qandidate.toggle.collection.in_memory');
     }
 
     #[Test]
-    public function it_aliases_the_redis_collection_when_configured()
+    public function it_aliases_the_redis_collection_when_configured(): void
     {
         $this->load([
             'persistence' => 'redis',
@@ -62,7 +56,7 @@ class QandidateToggleExtensionTest extends AbstractExtensionTestCase
     }
 
     #[Test]
-    public function it_loads_the_redis_service_file_when_configuring_the_redis_collection()
+    public function it_loads_the_redis_service_file_when_configuring_the_redis_collection(): void
     {
         $this->load([
             'persistence' => 'redis',
@@ -74,7 +68,7 @@ class QandidateToggleExtensionTest extends AbstractExtensionTestCase
     }
 
     #[Test]
-    public function it_sets_the_default_redis_namespace()
+    public function it_sets_the_default_redis_namespace(): void
     {
         $this->load([
             'persistence' => 'redis',
@@ -85,7 +79,7 @@ class QandidateToggleExtensionTest extends AbstractExtensionTestCase
     }
 
     #[Test]
-    public function it_creates_the_toggle_collection_factory_definition()
+    public function it_creates_the_toggle_collection_factory_definition(): void
     {
         $this->load([
             'persistence' => 'factory',
@@ -98,15 +92,16 @@ class QandidateToggleExtensionTest extends AbstractExtensionTestCase
         $definition = $this->container->getDefinition('qandidate.toggle.collection.factory');
         $factory = $definition->getFactory();
         $this->assertSame(InMemoryCollection::class, $definition->getClass());
+        $this->assertIsArray($factory);
         $this->assertArrayHasKey(0, $factory);
         $this->assertArrayHasKey(1, $factory);
-        $this->assertInstanceOf('Symfony\Component\DependencyInjection\Reference', $factory[0]);
+        $this->assertInstanceOf(Reference::class, $factory[0]);
         $this->assertSame('factory.service.id', (string) $factory[0]);
         $this->assertSame('create', $factory[1]);
     }
 
     #[Test]
-    public function it_registers_the_manager()
+    public function it_registers_the_manager(): void
     {
         $this->load();
 
@@ -115,7 +110,7 @@ class QandidateToggleExtensionTest extends AbstractExtensionTestCase
     }
 
     #[Test]
-    public function it_registers_the_twig_extension()
+    public function it_registers_the_twig_extension(): void
     {
         $this->load();
 
@@ -123,7 +118,7 @@ class QandidateToggleExtensionTest extends AbstractExtensionTestCase
     }
 
     #[Test]
-    public function it_creates_the_context_factory_alias()
+    public function it_creates_the_context_factory_alias(): void
     {
         $this->load();
 
@@ -131,7 +126,7 @@ class QandidateToggleExtensionTest extends AbstractExtensionTestCase
     }
 
     #[Test]
-    public function it_aliases_the_context_factory_to_configured_service()
+    public function it_aliases_the_context_factory_to_configured_service(): void
     {
         $this->load([
             'context_factory' => 'acme.yolo',
@@ -141,7 +136,7 @@ class QandidateToggleExtensionTest extends AbstractExtensionTestCase
     }
 
     #[Test]
-    public function it_creates_a_toggle_collection_from_config()
+    public function it_creates_a_toggle_collection_from_config(): void
     {
         $this->load([
             'persistence' => 'config',
