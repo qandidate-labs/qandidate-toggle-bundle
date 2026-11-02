@@ -24,7 +24,7 @@
     "require": {
         "php": "^8.2",
         "qandidate/toggle": "^2.0",
-        "symfony/framework-bundle": "^6.4 || ^7.4 || ^8.0",
+        "symfony/framework-bundle": "^6.4.13 || ^7.4 || ^8.0",
         "symfony/http-foundation": "^6.4 || ^7.4 || ^8.0",
         "symfony/http-kernel": "^6.4 || ^7.4 || ^8.0",
         "symfony/yaml": "^6.4 || ^7.4 || ^8.0",
@@ -32,16 +32,22 @@
     },
     "require-dev": {
         "symfony/browser-kit": "^6.4 || ^7.4 || ^8.0",
-        "twig/twig": "^3.0",
+        "twig/twig": "^3.28",
         "symfony/twig-bundle": "^6.4 || ^7.4 || ^8.0",
         "phpunit/phpunit": "^11.5 || ^12.5 || ^13.4",
         "matthiasnoback/symfony-dependency-injection-test": "^6.2",
         "matthiasnoback/symfony-config-test": "^6.2",
         "friendsofphp/php-cs-fixer": "^3.0",
         "phpstan/phpstan": "^2.0",
-        "phpstan/phpstan-phpunit": "^2.0"
+        "phpstan/phpstan-phpunit": "^2.0",
+        "symfony/runtime": "^6.4 || ^7.4 || ^8.0"
     },
     "suggest": {
         "twig/twig": "For using the twig helper"
+    },
+    "config": {
+        "allow-plugins": {
+            "symfony/runtime": true
+        }
     }
 }
