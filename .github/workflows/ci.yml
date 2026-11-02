@@ -11,11 +11,19 @@ on:
   schedule:
     - cron: "37 13 * * 1"
 
+permissions:
+  contents: "read"
+
+concurrency:
+  group: "${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}"
+  cancel-in-progress: "${{ github.event_name == 'pull_request' }}"
+
 jobs:
   tests:
-    name: "Run tests"
+    name: "Tests (PHP ${{ matrix.php-version }}, Symfony ${{ matrix.symfony-version }}, ${{ matrix.dependency-versions }})"
     runs-on: "ubuntu-latest"
     strategy:
+      fail-fast: false
       matrix:
         php-version:
           - "8.2"
@@ -23,9 +31,26 @@ jobs:
           - "8.4"
           - "8.5"
         symfony-version: # https://symfony.com/releases
-          - "4.4"
-          - "5.2"
-          - "5.3"
+          - "6.4"
+          - "7.4"
+          - "8.1"
+        dependency-versions:
+          - "highest"
+        exclude:
+          # Symfony 8 requires PHP 8.4 or later.
+          - php-version: "8.2"
+            symfony-version: "8.1"
+          - php-version: "8.3"
+            symfony-version: "8.1"
+        include:
+          # Test the lowest versions on the lowest PHP version only. Old
+          # patch releases cause deprecations on newer PHP versions that
+          # applications do not get.
+          - php-version: "8.2"
+            symfony-version: "6.4"
+            dependency-versions: "lowest"
+    env:
+      SYMFONY_REQUIRE: "${{ matrix.symfony-version }}.*"
     steps:
       - name: "Checkout"
         uses: "actions/checkout@v7"
@@ -34,14 +59,16 @@ jobs:
         with:
           php-version: "${{ matrix.php-version }}"
           coverage: "none"
-        env:
-          fail-fast: true
-      - name: "Validate composer.json and composer.lock"
+      - name: "Validate composer.json"
         run: "composer validate --strict --no-interaction --ansi"
+      - name: "Install Symfony Flex"
+        run: |
+          composer global config --no-plugins allow-plugins.symfony/flex true
+          composer global require --no-progress --no-scripts --no-plugins symfony/flex
       - name: "Install dependencies with Composer"
         uses: "ramsey/composer-install@v4"
-      - name: "Install specific Symfony version"
-        run: "composer --no-update require symfony/symfony:^${{ matrix.symfony-version }}"
+        with:
+          dependency-versions: "${{ matrix.dependency-versions }}"
       - name: "Run tests"
         run: "make test"
 
@@ -58,6 +85,8 @@ jobs:
           coverage: "none"
       - name: "Install dependencies with Composer"
         uses: "ramsey/composer-install@v4"
+        with:
+          dependency-versions: "highest"
       - name: "Check coding standards"
         run: "make php-cs-fixer-ci"
 
@@ -74,5 +103,7 @@ jobs:
           coverage: "none"
       - name: "Install dependencies with Composer"
         uses: "ramsey/composer-install@v4"
+        with:
+          dependency-versions: "highest"
       - name: "Run PHPStan"
-        run: "make phpstan"
+        run: "vendor/bin/phpstan analyse --no-progress --error-format=github"
